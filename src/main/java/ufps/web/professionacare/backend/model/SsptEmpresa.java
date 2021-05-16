@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -46,6 +48,10 @@ public class SsptEmpresa implements Serializable {
 	private String email;
 
 	private Boolean enable;
+
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "id_file", referencedColumnName = "id")
+	private SsptFile file;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_registro", updatable = false)
@@ -144,6 +150,14 @@ public class SsptEmpresa implements Serializable {
 
 	public void setEnable(Boolean enable) {
 		this.enable = enable;
+	}
+
+	public SsptFile getFile() {
+		return file;
+	}
+
+	public void setFile(SsptFile file) {
+		this.file = file;
 	}
 
 	public Date getFechaRegistro() {
