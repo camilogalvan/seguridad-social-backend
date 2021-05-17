@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -106,9 +105,13 @@ public class SsptCliente implements Serializable {
 	@JoinColumn(name = "id_tipo_identificacion", referencedColumnName = "id")
 	private SsptTipoIdentificacion tipoIdentificacion;
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_tipo_cliente", referencedColumnName = "id")
 	private SsptTipoCliente tipoCliente;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
+	private SsptMunicipio municipio;
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference
@@ -299,6 +302,14 @@ public class SsptCliente implements Serializable {
 
 	public void setSoportes(Set<SsptSoporteCliente> soportes) {
 		this.soportes = soportes;
+	}
+
+	public SsptMunicipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(SsptMunicipio municipio) {
+		this.municipio = municipio;
 	}
 
 }

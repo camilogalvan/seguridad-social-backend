@@ -1,13 +1,8 @@
 package ufps.web.professionacare.backend.controller;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +21,13 @@ import ufps.web.professionacare.backend.util.ValidationException;
 @RestController
 @RequestMapping("/api/empresa/")
 public class EmpresaController {
-	
+
 	@Autowired
 	private SsptEmpresaService service;
-	
+
 	@Autowired
 	private SsptFileService fileService;
-	
+
 	@GetMapping("actual")
 	public ResponseEntity<SsptEmpresa> getEmpresa() {
 
@@ -41,7 +36,7 @@ public class EmpresaController {
 		try {
 			api = service.getEmpresaActual();
 			if (api != null) {
-				return new ResponseEntity<>(api, HttpStatus.OK);				
+				return new ResponseEntity<>(api, HttpStatus.OK);
 			}
 			throw new Exception("");
 		} catch (HttpClientErrorException e) {
@@ -50,7 +45,7 @@ public class EmpresaController {
 			throw new ValidationException("No se encuentra registrada ninguna empresa.", e, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PostMapping(value = "", consumes = { "multipart/form-data" })
 	public EmpresaApi save(@ModelAttribute EmpresaEntradaApi entrada) {
 		EmpresaApi api = new EmpresaApi();
@@ -74,7 +69,7 @@ public class EmpresaController {
 			proveedorSearch.setFile(mppFile);
 		}
 
-		proveedorSearch= service.guardar(proveedorSearch);
+		proveedorSearch = service.guardar(proveedorSearch);
 
 		api.setEmpresa(proveedorSearch);
 
