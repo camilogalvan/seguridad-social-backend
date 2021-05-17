@@ -63,11 +63,7 @@ public class SsptUsuario implements Serializable {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_tipo_identificacion", referencedColumnName = "id")
-	private SsptTipoIdentificacion mppTipoIdentificacion;
-
-	@ManyToOne(optional = true)
-	@JoinColumn(name = "id_empresa", referencedColumnName = "id")
-	private SsptEmpresa ssptEmpresa;
+	private SsptTipoIdentificacion ssptTipoIdentificacion;
 
 	@ManyToOne
 	@JoinColumn(name = "id_rol", referencedColumnName = "id")
@@ -164,20 +160,12 @@ public class SsptUsuario implements Serializable {
 		this.fechaActualizacion = fechaActualizacion;
 	}
 
-	public SsptTipoIdentificacion getMppTipoIdentificacion() {
-		return mppTipoIdentificacion;
+	public SsptTipoIdentificacion getSsptTipoIdentificacion() {
+		return ssptTipoIdentificacion;
 	}
 
-	public void setMppTipoIdentificacion(SsptTipoIdentificacion mppTipoIdentificacion) {
-		this.mppTipoIdentificacion = mppTipoIdentificacion;
-	}
-
-	public SsptEmpresa getSsptEmpresa() {
-		return ssptEmpresa;
-	}
-
-	public void setSsptEmpresa(SsptEmpresa ssptEmpresa) {
-		this.ssptEmpresa = ssptEmpresa;
+	public void setSsptTipoIdentificacion(SsptTipoIdentificacion ssptTipoIdentificacion) {
+		this.ssptTipoIdentificacion = ssptTipoIdentificacion;
 	}
 
 	public SsptRol getSsptRol() {

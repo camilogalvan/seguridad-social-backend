@@ -51,25 +51,11 @@ public class EpsAuthenticationManager implements AuthenticationManager {
 			throw new BadCredentialsException("Contraseña o nombre de usuario invalidos");
 		}
 
-		if (respuesta.getSsptEmpresa() != null) {
-
-			if (respuesta.getSsptEmpresa().getEnable() == null || !respuesta.getSsptEmpresa().getEnable()) {
-				throw new BadCredentialsException("El proveedor está inactivo");
-			}
-
-		}
-
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 		details = new HashMap<>();
 
 		details.put("token", respuesta);
-
-		if (respuesta.getSsptEmpresa() != null) {
-			details.put("nit", respuesta.getSsptEmpresa().getNit());
-		} else {
-			details.put("nit", null);
-		}
 
 		if (respuesta.getSsptRol() != null) {
 			authorities.add(new SimpleGrantedAuthority(respuesta.getSsptRol().getRol()));
