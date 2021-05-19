@@ -110,6 +110,10 @@ public class SsptCliente implements Serializable {
 	private SsptTipoCliente tipoCliente;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_cliente_dependiente", referencedColumnName = "id")
+	private SsptCliente clienteDependiente;
+
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
 	private SsptMunicipio municipio;
 
@@ -310,6 +314,14 @@ public class SsptCliente implements Serializable {
 
 	public void setMunicipio(SsptMunicipio municipio) {
 		this.municipio = municipio;
+	}
+
+	public SsptCliente getClienteDependiente() {
+		return clienteDependiente;
+	}
+
+	public void setClienteDependiente(SsptCliente clienteDependiente) {
+		this.clienteDependiente = clienteDependiente;
 	}
 
 }
