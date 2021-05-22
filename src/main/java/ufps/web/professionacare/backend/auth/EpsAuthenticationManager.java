@@ -57,9 +57,9 @@ public class EpsAuthenticationManager implements AuthenticationManager {
 
 		details.put("token", respuesta);
 
-		if (respuesta.getSsptRol() != null) {
-			authorities.add(new SimpleGrantedAuthority(respuesta.getSsptRol().getRol()));
-			details.put("role", respuesta.getSsptRol().getRol());
+		if (respuesta.getRol() != null) {
+			authorities.add(new SimpleGrantedAuthority(respuesta.getRol().getRol()));
+			details.put("role", respuesta.getRol().getRol());
 		} else {
 			throw new BadCredentialsException("No cuenta con ningun rol");
 		}

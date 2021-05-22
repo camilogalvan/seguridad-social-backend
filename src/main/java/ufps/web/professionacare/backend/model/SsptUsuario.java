@@ -63,11 +63,11 @@ public class SsptUsuario implements Serializable {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_tipo_identificacion", referencedColumnName = "id")
-	private SsptTipoIdentificacion ssptTipoIdentificacion;
+	private SsptTipoIdentificacion tipoIdentificacion;
 
 	@ManyToOne
 	@JoinColumn(name = "id_rol", referencedColumnName = "id")
-	private SsptRol ssptRol;
+	private SsptRol rol;
 
 	@PrePersist
 	protected void prePersist() {
@@ -160,20 +160,30 @@ public class SsptUsuario implements Serializable {
 		this.fechaActualizacion = fechaActualizacion;
 	}
 
-	public SsptTipoIdentificacion getSsptTipoIdentificacion() {
-		return ssptTipoIdentificacion;
+	public SsptTipoIdentificacion getTipoIdentificacion() {
+		return tipoIdentificacion;
 	}
 
-	public void setSsptTipoIdentificacion(SsptTipoIdentificacion ssptTipoIdentificacion) {
-		this.ssptTipoIdentificacion = ssptTipoIdentificacion;
+	public void setTipoIdentificacion(SsptTipoIdentificacion tipoIdentificacion) {
+		this.tipoIdentificacion = tipoIdentificacion;
 	}
 
-	public SsptRol getSsptRol() {
-		return ssptRol;
+	public SsptRol getRol() {
+		return rol;
 	}
 
-	public void setSsptRol(SsptRol ssptRol) {
-		this.ssptRol = ssptRol;
+	public void setRol(SsptRol rol) {
+		this.rol = rol;
 	}
+
+	@Override
+	public String toString() {
+		return "SsptUsuario [id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", email=" + email
+				+ ", identificacion=" + identificacion + ", username=" + username + ", password=" + password
+				+ ", enable=" + enable + ", fechaRegistro=" + fechaRegistro + ", fechaActualizacion="
+				+ fechaActualizacion + ", tipoIdentificacion=" + (tipoIdentificacion != null ? tipoIdentificacion.getId():"null") + ", rol=" + (rol != null ? rol.getId(): "null") + "]";
+	}
+	
+	
 
 }

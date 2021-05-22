@@ -14,6 +14,11 @@ public class ValidationException extends RuntimeException {
 		this.exception = exception;
 	}
 
+	public ValidationException(String msg, HttpStatus status) {
+		this.msg = msg;
+		this.status = status;
+	}
+
 	public String getMsg() {
 		return msg;
 	}

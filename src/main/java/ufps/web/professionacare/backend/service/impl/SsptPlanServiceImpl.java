@@ -8,10 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ufps.web.professionacare.backend.model.SsptPlan;
 import ufps.web.professionacare.backend.repository.SsptPlanRepository;
+import ufps.web.professionacare.backend.service.SsptPlanService;
 
 @Service
 @Transactional
-public class SsptPlanServiceImpl implements ufps.web.professionacare.backend.service.SsptPlanService {
+public class SsptPlanServiceImpl implements SsptPlanService {
 
 	@Autowired
 	private SsptPlanRepository repository;
