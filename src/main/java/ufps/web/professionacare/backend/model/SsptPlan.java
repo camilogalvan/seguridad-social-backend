@@ -16,8 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "sspt_plan")
 public class SsptPlan implements Serializable {
@@ -25,7 +23,6 @@ public class SsptPlan implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private int id;
 
 	private String titulo;
@@ -103,6 +100,14 @@ public class SsptPlan implements Serializable {
 
 	public void setFechaActualizacion(Date fechaActualizacion) {
 		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public SsptFile getFile() {
+		return file;
+	}
+
+	public void setFile(SsptFile file) {
+		this.file = file;
 	}
 
 }
