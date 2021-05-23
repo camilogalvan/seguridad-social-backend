@@ -45,7 +45,6 @@ public class PlanController {
 		return new ResponseEntity<>(api, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("activos")
 	public ResponseEntity<PlanesApi> getListActivos() {
 
