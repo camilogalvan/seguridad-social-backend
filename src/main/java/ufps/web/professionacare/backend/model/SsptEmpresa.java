@@ -37,8 +37,10 @@ public class SsptEmpresa implements Serializable {
 	@Column(name = "razon_social")
 	private String razonSocial;
 
+	@Column(length = 3000)
 	private String mision;
 
+	@Column(length = 3000)
 	private String vision;
 
 	private String direccion;

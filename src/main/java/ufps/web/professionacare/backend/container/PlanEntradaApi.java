@@ -10,6 +10,9 @@ public class PlanEntradaApi implements Serializable {
 	private Integer id;
 	private String titulo;
 	private String descripcion;
+	private Integer precio;
+	private String color;
+	private String servicios;
 	private Boolean enable;
 	private MultipartFile file = null;
 
@@ -51,6 +54,30 @@ public class PlanEntradaApi implements Serializable {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(String servicios) {
+		this.servicios = servicios;
 	}
 
 }

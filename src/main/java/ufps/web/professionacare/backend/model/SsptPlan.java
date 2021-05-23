@@ -27,7 +27,13 @@ public class SsptPlan implements Serializable {
 
 	private String titulo;
 
+	private Integer precio;
+
 	private String descripcion;
+
+	private String servicios;
+
+	private String color;
 
 	private Boolean enable;
 
@@ -108,6 +114,30 @@ public class SsptPlan implements Serializable {
 
 	public void setFile(SsptFile file) {
 		this.file = file;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
+	}
+
+	public String getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(String servicios) {
+		this.servicios = servicios;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

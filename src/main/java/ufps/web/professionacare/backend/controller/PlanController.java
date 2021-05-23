@@ -20,11 +20,10 @@ import ufps.web.professionacare.backend.service.SsptFileService;
 import ufps.web.professionacare.backend.service.impl.SsptPlanServiceImpl;
 import ufps.web.professionacare.backend.util.ValidationException;
 
-
 @RestController
 @RequestMapping("/api/plan/")
 public class PlanController {
-	
+
 	@Autowired
 	private SsptPlanServiceImpl service;
 
@@ -75,7 +74,7 @@ public class PlanController {
 
 		return new ResponseEntity<>(api, HttpStatus.OK);
 	}
-	
+
 	@Secured({ "ROLE_ADMIN" })
 	@PostMapping("cambiarEstado/{id}")
 	public ResponseEntity<Boolean> cambiarEstado(@PathVariable Integer id) {
@@ -109,11 +108,15 @@ public class PlanController {
 					throw new Exception("El plan no existe.");
 				}
 			}
-			
+
 			plan.setTitulo(entrada.getTitulo());
 			plan.setDescripcion(entrada.getDescripcion());
+			plan.setColor(entrada.getColor());
+			plan.setServicios(entrada.getServicios());
+			plan.setPrecio(entrada.getPrecio());
+			plan.setDescripcion(entrada.getDescripcion());
 			plan.setEnable(entrada.getEnable());
-			
+
 			if (entrada.getFile() != null) {
 				SsptFile mppFile = null;
 				if (plan.getFile() != null) {
@@ -123,7 +126,7 @@ public class PlanController {
 				}
 				plan.setFile(mppFile);
 			}
-			
+
 			api.setPlan(service.guardar(plan));
 		} catch (Exception e) {
 			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
