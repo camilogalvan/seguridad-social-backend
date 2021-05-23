@@ -8,6 +8,8 @@ import ufps.web.professionacare.backend.model.SsptPlan;
 
 public interface SsptPlanRepository extends CrudRepository<SsptPlan, Integer> {
 	
-	public List<SsptPlan> findByEnable(Boolean enable);
+	public List<SsptPlan> findByEnableOrderByPrecioAsc(Boolean enable);
+	
+	public List<SsptPlan> findAllOrderByIdDesc();
 
 }

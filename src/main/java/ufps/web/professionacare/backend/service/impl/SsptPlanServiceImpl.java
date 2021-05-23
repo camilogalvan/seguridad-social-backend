@@ -29,12 +29,12 @@ public class SsptPlanServiceImpl implements SsptPlanService {
 
 	@Override
 	public List<SsptPlan> listadoPlanesActivos() {
-		return repository.findByEnable(true);
+		return repository.findByEnableOrderByPrecioAsc(true);
 	}
 
 	@Override
 	public List<SsptPlan> listadoPlanes() {
-		return (List<SsptPlan>) repository.findAll();
+		return (List<SsptPlan>) repository.findAllOrderByIdDesc();
 	}
 
 }
