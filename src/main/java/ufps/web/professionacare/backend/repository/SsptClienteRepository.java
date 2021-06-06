@@ -8,5 +8,7 @@ public interface SsptClienteRepository extends CrudRepository <SsptCliente, Inte
 
 	public SsptCliente findByidentificacion(String documento);
 	
-	public SsptCliente findByEstadoCliente (EstadoCliente es);
+	public SsptCliente findByestadoCliente (EstadoCliente es);
+	
+	public SsptCliente findBynombreCompleto(String nombre);
 }
