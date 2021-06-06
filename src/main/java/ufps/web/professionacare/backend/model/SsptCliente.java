@@ -122,7 +122,7 @@ public class SsptCliente implements Serializable {
 	private Set<SsptSoporteCliente> soportes;
 
 	@PrePersist
-	protected void prePersist() {
+	public void prePersist() {
 		this.estadoCliente = EstadoCliente.PENDIENTE;
 		this.fechaRegistro = new Date();
 	}

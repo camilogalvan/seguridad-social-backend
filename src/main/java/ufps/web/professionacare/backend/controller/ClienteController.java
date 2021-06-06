@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.service.SsptClienteService;
 
@@ -34,6 +36,25 @@ public class ClienteController {
 		
 		cliente.prePersist();
 		return service.guardar(cliente);
+	}
+	
+	@GetMapping("porId/{id}")
+	public SsptCliente GetPorId(@PathVariable int id) {
+		
+		return service.GetPorId(id);
+		
+	}
+	
+	@GetMapping("porCedula/{cedula}")
+	public SsptCliente GetPorCedula(@PathVariable String cedula) {
+		
+		return service.GetPorCedula(cedula);
+	}
+	
+	@GetMapping("porEstado")
+	public SsptCliente GetPorEstado(@RequestBody EstadoCliente e) {
+		
+		return service.GetPorEstado(e);
 	}
 
 }

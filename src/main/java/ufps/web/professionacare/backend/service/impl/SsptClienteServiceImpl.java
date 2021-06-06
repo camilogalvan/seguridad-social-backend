@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.repository.SsptClienteRepository;
 import ufps.web.professionacare.backend.service.SsptClienteService;
@@ -35,6 +36,18 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 	public SsptCliente guardar(SsptCliente cliente) {
 		
 		return c.save(cliente);
+	}
+
+	@Override
+	public SsptCliente GetPorCedula(String cedula) {
+		
+		return c.findByidentificacion(cedula);
+	}
+
+	@Override
+	public SsptCliente GetPorEstado(EstadoCliente e) {
+		
+		return c.findByEstadoCliente(e);
 	}
 
 	
