@@ -55,6 +55,9 @@ public class SsptCliente implements Serializable {
 
 	@Column
 	private String apellido2;
+	
+	@Column(nullable = false)
+	private String nombreCompleto;
 
 	@Column
 	private String telefono;
