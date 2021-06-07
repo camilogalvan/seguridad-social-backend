@@ -16,7 +16,5 @@ public interface SsptClienteService {
 	public SsptCliente GetPorCedula(String cedula);
 	
 	public SsptCliente GetPorEstado(EstadoCliente e);
-	
-	public SsptCliente GetPorNombreCompleto(String nombre);
 
 }
