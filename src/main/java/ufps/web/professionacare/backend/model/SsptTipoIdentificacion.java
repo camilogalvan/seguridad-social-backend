@@ -27,7 +27,8 @@ public class SsptTipoIdentificacion implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String tipo;
 	
-	
+	public SsptTipoIdentificacion() {
+	}
 
 	public SsptTipoIdentificacion(String descripcion, String tipo) {
 		super();

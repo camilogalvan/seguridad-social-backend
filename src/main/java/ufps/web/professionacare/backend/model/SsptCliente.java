@@ -107,23 +107,17 @@ public class SsptCliente implements Serializable {
 	@JoinColumn(name = "id_tipo_identificacion", referencedColumnName = "id")
 	private SsptTipoIdentificacion tipoIdentificacion;
 
-	/**@ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_tipo_cliente", referencedColumnName = "id")
-	private SsptTipoCliente tipoCliente;**/
+	private SsptTipoCliente tipoCliente;	
 
-	
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "id_cliente_dependiente", referencedColumnName = "id")
+	private SsptCliente clienteDependiente;	
 
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
 	private SsptMunicipio municipio;
-
-	public String getNombreCompleto() {
-		return nombreCompleto;
-	}
-
-	public void setNombreCompleto(String nombreCompleto) {
-		this.nombreCompleto = nombreCompleto;
-	}
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference
@@ -133,7 +127,6 @@ public class SsptCliente implements Serializable {
 	public void prePersist() {
 		this.estadoCliente = EstadoCliente.PENDIENTE;
 		this.fechaRegistro = new Date();
-		//this.tipoCliente = new SsptTipoCliente("dependiente", "es dependiente");
 	}
 
 	@PreUpdate
@@ -301,13 +294,13 @@ public class SsptCliente implements Serializable {
 		this.tipoIdentificacion = tipoIdentificacion;
 	}
 
-	/**public SsptTipoCliente getTipoCliente() {
+	public SsptTipoCliente getTipoCliente() {
 		return tipoCliente;
 	}
 
 	public void setTipoCliente(SsptTipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
-	}**/
+	}
 
 	public Set<SsptSoporteCliente> getSoportes() {
 		return soportes;
@@ -325,12 +318,12 @@ public class SsptCliente implements Serializable {
 		this.municipio = municipio;
 	}
 
-	/**public SsptCliente getClienteDependiente() {
+	public SsptCliente getClienteDependiente() {
 		return clienteDependiente;
 	}
 
 	public void setClienteDependiente(SsptCliente clienteDependiente) {
 		this.clienteDependiente = clienteDependiente;
-	}**/
+	}
 
 }
