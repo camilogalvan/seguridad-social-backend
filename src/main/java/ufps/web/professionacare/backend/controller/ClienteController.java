@@ -60,8 +60,7 @@ public class ClienteController {
 		client.setTelefono(entrada.getTelefono());
 		client.setDireccion(entrada.getDireccion());
 		client.setIdentificacion(entrada.getIdentificacion());
-		client.setTipoIdentificacion(new SsptTipoIdentificacion("cedula de ciudadania", "CC"));
-		client.setNombreCompleto(client.getNombre1()+" " + client.getNombre2() + " " + client.getApellido1());
+//		client.setTipoIdentificacion(new SsptTipoIdentificacion("cedula de ciudadania", "CC"));
 		//client.setTipoCliente(new SsptTipoCliente(entrada.getTipoCliente(), "Un cliente despendfiente" ));
 		client.prePersist();
 
