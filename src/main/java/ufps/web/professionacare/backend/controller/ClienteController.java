@@ -147,14 +147,9 @@ public class ClienteController {
 	
 	@PostMapping("cambiarEstado/{id}/{estado}")
 	public SsptCliente CambiarEstado(@PathVariable int id, @PathVariable String estado) {
-		
-		SsptCliente cli = this.GetPorId(id);
-		
-		EstadoCliente es = cli.getEstadoCliente();
-		es.setNombre(estado);
-		cli.setEstadoCliente(es);
-		return service.guardar(cli);
-		
+		SsptCliente cli = this.GetPorId(id);		
+		cli.setEstadoCliente(EstadoCliente.valueOf(estado));		
+		return service.guardar(cli);		
 	}
 
 }

@@ -8,7 +8,6 @@ import ufps.web.professionacare.backend.service.SsptSolicitudAfiliacionService;
 import ufps.web.professionacare.backend.service.SsptTipoClienteService;
 import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
 import ufps.web.professionacare.backend.service.SsptUsuarioService;
-import ufps.web.professionacare.backend.service.impl.SsptPlanServiceImpl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,12 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.SolicitudEntradaApi;
-import ufps.web.professionacare.backend.container.UsuarioApi;
 import ufps.web.professionacare.backend.model.*;
 
 @RestController
@@ -63,9 +60,7 @@ public class SolicitudAfiliacionController {
 
 	@PostMapping(value = "", consumes = { "multipart/form-data" })
 	public SsptSolicitudAfiliacion guardar(@ModelAttribute SolicitudEntradaApi entrada) {
-		
-		System.out.println("guardar solicitud");
-		
+			
 		// Verificar si ya existe
 		SsptCliente cliente = clienteService.GetPorCedula(entrada.getIdentificacion());
 
