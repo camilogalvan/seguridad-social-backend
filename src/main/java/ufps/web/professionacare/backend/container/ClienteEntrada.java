@@ -6,28 +6,16 @@ public class ClienteEntrada implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	String nombre1;
-
 	String nombre2;
-
 	String apellido1;
-
 	String apellido2;
-
 	String telefono;
-
 	String direccion;
-
-	String nombreMunicipio;
-
-	String tipoCliente;
-
 	String correo;
-
 	String identificacion;
-
 	Integer idTipoIdentificacion;
-
 	Integer idTipoCliente;
+	Integer idMunicipio;
 
 	public String getNombre1() {
 		return nombre1;
@@ -99,22 +87,6 @@ public class ClienteEntrada implements Serializable {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}
-
-	public String getNombreMunicipio() {
-		return nombreMunicipio;
-	}
-
-	public void setNombreMunicipio(String nombreMunicipio) {
-		this.nombreMunicipio = nombreMunicipio;
-	}
-
-	public String getTipoCliente() {
-		return tipoCliente;
-	}
-
-	public void setTipoCliente(String tipoCliente) {
-		this.tipoCliente = tipoCliente;
 	}
 
 	public Integer getIdTipoCliente() {
