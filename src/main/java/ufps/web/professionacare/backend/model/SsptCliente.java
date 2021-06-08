@@ -67,6 +67,8 @@ public class SsptCliente implements Serializable {
 
 	@Column
 	private Integer ibc;
+	
+	private String nombreCompleto;
 
 	@Column(name = "lugar_expedicion")
 	private String lugarExpedicion;
