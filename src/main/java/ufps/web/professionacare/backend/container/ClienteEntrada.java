@@ -3,26 +3,31 @@ package ufps.web.professionacare.backend.container;
 import java.io.Serializable;
 
 public class ClienteEntrada implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	String nombre1;
-	
+
 	String nombre2;
-	
+
 	String apellido1;
-	
+
 	String apellido2;
-	
+
 	String telefono;
-	
+
 	String direccion;
-	
+
 	String nombreMunicipio;
-	
+
 	String tipoCliente;
-	
+
 	String correo;
-	
+
 	String identificacion;
+
+	Integer idTipoIdentificacion;
+
+	Integer idTipoCliente;
 
 	public String getNombre1() {
 		return nombre1;
@@ -31,11 +36,14 @@ public class ClienteEntrada implements Serializable {
 	public void setNombre1(String nombre1) {
 		this.nombre1 = nombre1;
 	}
-	
 
-	
+	public Integer getIdTipoIdentificacion() {
+		return idTipoIdentificacion;
+	}
 
-
+	public void setIdTipoIdentificacion(Integer idTipoIdentificacion) {
+		this.idTipoIdentificacion = idTipoIdentificacion;
+	}
 
 	public String getIdentificacion() {
 		return identificacion;
@@ -108,8 +116,13 @@ public class ClienteEntrada implements Serializable {
 	public void setTipoCliente(String tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
-	
-	
-	
-	
+
+	public Integer getIdTipoCliente() {
+		return idTipoCliente;
+	}
+
+	public void setIdTipoCliente(Integer idTipoCliente) {
+		this.idTipoCliente = idTipoCliente;
+	}
+
 }
