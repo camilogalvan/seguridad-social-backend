@@ -13,5 +13,7 @@ public interface SsptPlanService {
 	public List<SsptPlan> listadoPlanesActivos();
 
 	public List<SsptPlan> listadoPlanes();
+	
+	public SsptPlan buscarPorTitulo(String title);
 
 }

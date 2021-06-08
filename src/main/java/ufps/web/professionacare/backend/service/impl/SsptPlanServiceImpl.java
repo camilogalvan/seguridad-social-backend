@@ -37,4 +37,11 @@ public class SsptPlanServiceImpl implements SsptPlanService {
 		return (List<SsptPlan>) repository.findAllByOrderByIdAsc();
 	}
 
+	@Override
+	public SsptPlan buscarPorTitulo(String titulo) {
+		
+		return repository.findBytitulo(titulo);
+	}
+
+	
 }

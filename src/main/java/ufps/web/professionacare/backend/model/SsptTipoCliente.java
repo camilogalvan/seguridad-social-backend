@@ -26,6 +26,14 @@ public class SsptTipoCliente implements Serializable {
 
 	@Column(nullable = false, unique = true)
 	private String tipo;
+	
+	
+
+	public SsptTipoCliente(String tipo, String descripcion) {
+		super();
+		this.tipo = tipo;
+		this.descripcion=descripcion;
+	}
 
 	public int getId() {
 		return id;

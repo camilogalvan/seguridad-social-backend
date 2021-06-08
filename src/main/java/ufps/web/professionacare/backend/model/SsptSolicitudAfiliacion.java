@@ -65,7 +65,7 @@ public class SsptSolicitudAfiliacion implements Serializable {
 	private Date fechaRegistro;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_respuesta", nullable = false)
+	@Column(name = "fecha_respuesta", nullable = true)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "America/Bogota")
 	private Date fechaRespuesta;
 

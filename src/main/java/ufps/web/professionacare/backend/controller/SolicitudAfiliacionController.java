@@ -12,37 +12,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ufps.web.professionacare.backend.container.SolicitudEntrada;
+import ufps.web.professionacare.backend.container.UsuarioApi;
 import ufps.web.professionacare.backend.model.*;
 @RestController
-@RequestMapping("/api/Solicitudes")
+@RequestMapping("/api/solicitudes")
 public class SolicitudAfiliacionController {
 
 	@Autowired
 	public SsptSolicitudAfiliacionService serv;
 	
-	@GetMapping("/FindAll")
+	@Autowired
+	public ClienteController cli;
+	
+	@Autowired
+	public UsuarioController us;
+	
+	@Autowired
+	public PlanController plan;
+	
+	@GetMapping("/findAll")
 	public List<SsptSolicitudAfiliacion> index(){
 		
 		return serv.Get();
 	}
 	
-	@GetMapping("/FindById/{id}")
+	@GetMapping("/findById/{id}")
 	public SsptSolicitudAfiliacion GetId1(@PathVariable int id) {
 		System.out.println("id1:"+ id);
 		
 		return null; //serv.GetPorId(id);
 	}
 	
-	@GetMapping("/FindById")
+	@GetMapping("/findById")
 	public SsptSolicitudAfiliacion GetId2(@RequestBody int id) {
 		System.out.println("id2:"+ id);
 		return null; //serv.GetPorId(id);
 	}
 	
 	@PostMapping("/save")
-	public SsptSolicitudAfiliacion guardar(@RequestBody SsptSolicitudAfiliacion sol) {
+	public SsptSolicitudAfiliacion guardar(@RequestBody SolicitudEntrada sol) {
 		
-		return serv.guardar(sol);
+		SsptSolicitudAfiliacion s= new SsptSolicitudAfiliacion();
+		
+		s.setObservaciones(sol.getObservaciones());
+		s.setSsptCliente(cli.GetPorCedula(sol.getCliente()));	
+		s.setSsptUsuario( us.getUsuario(sol.getUsuario()).getUsuario());
+		s.setSsptPlan(plan.getPorTitulo(sol.getNombrePlan()));
+		
+		
+		return serv.guardar(s);
 	}
 	
 }

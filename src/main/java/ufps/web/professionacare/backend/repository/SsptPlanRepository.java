@@ -11,5 +11,7 @@ public interface SsptPlanRepository extends CrudRepository<SsptPlan, Integer> {
 	public List<SsptPlan> findByEnableOrderByPrecio(Boolean enable);
 	
 	public List<SsptPlan> findAllByOrderByIdAsc();
+	
+	public SsptPlan findBytitulo(String title);
 
 }

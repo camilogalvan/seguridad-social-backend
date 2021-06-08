@@ -44,6 +44,13 @@ public class PlanController {
 
 		return new ResponseEntity<>(api, HttpStatus.OK);
 	}
+	
+	@GetMapping("porTitulo/{titulo}")
+	public SsptPlan getPorTitulo(@PathVariable String titulo) {
+		
+		return service.buscarPorTitulo(titulo);
+		
+	}
 
 	@GetMapping("activos")
 	public ResponseEntity<PlanesApi> getListActivos() {

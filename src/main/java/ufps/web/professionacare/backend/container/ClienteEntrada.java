@@ -19,6 +19,10 @@ public class ClienteEntrada implements Serializable {
 	String nombreMunicipio;
 	
 	String tipoCliente;
+	
+	String correo;
+	
+	String identificacion;
 
 	public String getNombre1() {
 		return nombre1;
@@ -26,6 +30,27 @@ public class ClienteEntrada implements Serializable {
 
 	public void setNombre1(String nombre1) {
 		this.nombre1 = nombre1;
+	}
+	
+
+	
+
+
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 	public String getNombre2() {
