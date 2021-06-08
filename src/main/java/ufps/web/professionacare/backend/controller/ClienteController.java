@@ -86,12 +86,6 @@ public class ClienteController {
 		return service.GetPorCedula(cedula);
 	}
 	
-	@GetMapping("porNombreCompleto/{nombreCompleto}")
-	public SsptCliente GetPorNombre(@PathVariable String nombre) {
-		
-		return service.GetPorNombreCompleto(nombre);
-	}
-	
 	
 	@GetMapping("porEstado")
 	public SsptCliente GetPorEstado(@RequestBody EstadoCliente e) {

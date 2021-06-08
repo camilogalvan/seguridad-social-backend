@@ -47,14 +47,9 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 	@Override
 	public SsptCliente GetPorEstado(EstadoCliente e) {
 		
-		return c.findByestadoCliente(e);
+		return c.findByEstadoCliente(e);
 	}
 
-	@Override
-	public SsptCliente GetPorNombreCompleto(String nombre) {
-		// TODO Auto-generated method stub
-		return c.findBynombreCompleto(nombre);
-	}
 
 	
 	
