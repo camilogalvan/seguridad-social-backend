@@ -28,7 +28,7 @@ import ufps.web.professionacare.backend.container.UsuarioApi;
 import ufps.web.professionacare.backend.model.*;
 
 @RestController
-@RequestMapping("/api/solicitudes")
+@RequestMapping("/api/solicitudes/")
 public class SolicitudAfiliacionController {
 
 	@Autowired
@@ -55,13 +55,13 @@ public class SolicitudAfiliacionController {
 	@Autowired
 	private SsptFileService fileService;
 	
-	@GetMapping("/findAll")
+	@GetMapping("findAll")
 	public List<SsptSolicitudAfiliacion> index(){
 		
 		return service.Get();
 	}
 
-	@PostMapping(value = "/save/", consumes = { "multipart/form-data" })
+	@PostMapping(value = "", consumes = { "multipart/form-data" })
 	public SsptSolicitudAfiliacion guardar(@ModelAttribute SolicitudEntradaApi entrada) {
 		
 		System.out.println("guardar solicitud");
@@ -121,7 +121,7 @@ public class SolicitudAfiliacionController {
 		return service.guardar(solicitud);
 	}
 	
-	@PostMapping("/responder/{id}/{rt}")
+	@PostMapping("responder/{id}/{rt}")
 	public SsptSolicitudAfiliacion responder(@PathVariable int id, @PathVariable String rt) {
 		
 		SsptSolicitudAfiliacion soli = service.GetPorId(id);

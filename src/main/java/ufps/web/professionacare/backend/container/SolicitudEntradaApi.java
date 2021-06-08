@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SolicitudEntradaApi implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -777275812027975941L;
 
 	private String nombre1;
 	private String nombre2;
