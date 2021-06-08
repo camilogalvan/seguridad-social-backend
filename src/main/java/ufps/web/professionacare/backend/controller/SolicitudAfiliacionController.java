@@ -68,4 +68,14 @@ public class SolicitudAfiliacionController {
 		return serv.guardar(s);
 	}
 	
+	@PostMapping("/responder/{id}/{rt}")
+	public SsptSolicitudAfiliacion responder(@PathVariable int id, @PathVariable String rt) {
+		
+		SsptSolicitudAfiliacion soli = serv.GetPorId(id);
+		
+		soli.setRespuesta(rt);
+		
+		return serv.guardar(soli);
+	}
+	
 }

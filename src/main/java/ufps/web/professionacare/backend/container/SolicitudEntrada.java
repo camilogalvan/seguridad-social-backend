@@ -9,6 +9,10 @@ public class SolicitudEntrada {
 	public String cliente;
 	
 	public String usuario;
+	
+	public String respuesta;
+	
+	
 
 	public String getObservaciones() {
 		return observaciones;
@@ -16,6 +20,15 @@ public class SolicitudEntrada {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
 
 	public int getPlan() {
