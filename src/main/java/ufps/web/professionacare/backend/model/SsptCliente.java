@@ -115,14 +115,6 @@ public class SsptCliente implements Serializable {
 	@JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
 	private SsptMunicipio municipio;
 
-	public String getNombreCompleto() {
-		return nombreCompleto;
-	}
-
-	public void setNombreCompleto(String nombreCompleto) {
-		this.nombreCompleto = nombreCompleto;
-	}
-
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
