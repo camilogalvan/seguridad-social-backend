@@ -16,8 +16,6 @@ public class ClienteEntrada implements Serializable {
 	Integer idTipoIdentificacion;
 	Integer idTipoCliente;
 	Integer idMunicipio;
-	
-	
 
 	public ClienteEntrada() {
 		super();
@@ -34,7 +32,6 @@ public class ClienteEntrada implements Serializable {
 	public Integer getIdTipoIdentificacion() {
 		return idTipoIdentificacion;
 	}
-	
 
 	public Integer getIdMunicipio() {
 		return idMunicipio;

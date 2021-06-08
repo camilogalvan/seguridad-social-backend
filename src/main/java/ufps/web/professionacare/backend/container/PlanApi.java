@@ -12,8 +12,6 @@ public class PlanApi implements Serializable {
 	public SsptPlan getPlan() {
 		return plan;
 	}
-	
-	
 
 	public void setPlan(SsptPlan plan) {
 		this.plan = plan;

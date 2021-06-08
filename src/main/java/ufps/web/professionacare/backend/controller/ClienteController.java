@@ -42,7 +42,8 @@ public class ClienteController {
 	@Autowired
 	private SsptTipoClienteService tipoClienteService;
 	
-	@Autowired SsptMunicipioService municipioser;
+	@Autowired 
+	private SsptMunicipioService municipioser;
 	
 	@GetMapping("todos")
 	public List<SsptCliente> getAll() {
