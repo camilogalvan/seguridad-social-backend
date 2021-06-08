@@ -16,6 +16,12 @@ public class ClienteEntrada implements Serializable {
 	Integer idTipoIdentificacion;
 	Integer idTipoCliente;
 	Integer idMunicipio;
+	
+	
+
+	public ClienteEntrada() {
+		super();
+	}
 
 	public String getNombre1() {
 		return nombre1;
@@ -27,6 +33,19 @@ public class ClienteEntrada implements Serializable {
 
 	public Integer getIdTipoIdentificacion() {
 		return idTipoIdentificacion;
+	}
+	
+
+	public Integer getIdMunicipio() {
+		return idMunicipio;
+	}
+
+	public void setIdMunicipio(Integer idMunicipio) {
+		this.idMunicipio = idMunicipio;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void setIdTipoIdentificacion(Integer idTipoIdentificacion) {

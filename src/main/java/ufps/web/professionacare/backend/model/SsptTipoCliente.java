@@ -29,6 +29,11 @@ public class SsptTipoCliente implements Serializable {
 	
 	
 
+	
+	public SsptTipoCliente() {
+		super();
+	}
+
 	public SsptTipoCliente(String tipo, String descripcion) {
 		super();
 		this.tipo = tipo;

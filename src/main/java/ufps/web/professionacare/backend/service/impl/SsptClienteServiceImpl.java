@@ -50,6 +50,8 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 		return c.findByEstadoCliente(e);
 	}
 
+	
+
 
 	
 	

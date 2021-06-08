@@ -4,7 +4,7 @@ public class SolicitudEntrada {
 	
 	public String observaciones;
 	
-	public String NombrePlan;
+	public int Plan;
 	
 	public String cliente;
 	
@@ -18,12 +18,12 @@ public class SolicitudEntrada {
 		this.observaciones = observaciones;
 	}
 
-	public String getNombrePlan() {
-		return NombrePlan;
+	public int getPlan() {
+		return Plan;
 	}
 
-	public void setNombrePlan(String nombrePlan) {
-		NombrePlan = nombrePlan;
+	public void setPlan(int Plan) {
+		this.Plan = Plan;
 	}
 
 	public String getCliente() {

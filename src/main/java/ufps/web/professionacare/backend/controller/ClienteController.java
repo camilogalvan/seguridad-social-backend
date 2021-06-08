@@ -21,12 +21,14 @@ import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptEmpresa;
 import ufps.web.professionacare.backend.model.SsptFile;
+import ufps.web.professionacare.backend.model.SsptMunicipio;
 import ufps.web.professionacare.backend.model.SsptTipoCliente;
 import ufps.web.professionacare.backend.model.SsptTipoIdentificacion;
 import ufps.web.professionacare.backend.service.SsptClienteService;
+import ufps.web.professionacare.backend.service.SsptMunicipioService;
 import ufps.web.professionacare.backend.service.SsptTipoClienteService;
 import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
-
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 @RestController
 @RequestMapping("/api/clientes/")
 public class ClienteController {
@@ -39,6 +41,8 @@ public class ClienteController {
 	
 	@Autowired
 	private SsptTipoClienteService tipoClienteService;
+	
+	@Autowired SsptMunicipioService municipioser;
 	
 	@GetMapping("todos")
 	public List<SsptCliente> getAll() {
@@ -56,11 +60,12 @@ public class ClienteController {
 	}**/
 	
 	@PostMapping(value = "save")
-	public ClienteApi save(@RequestBody ClienteEntrada entrada) {
-		ClienteApi api = new ClienteApi();
+	public SsptCliente save(@RequestBody ClienteEntrada entrada) {
+		//ClienteApi api = new ClienteApi();
 
 		SsptTipoIdentificacion tipoId = tipoIdentificacionService.buscarPorId(entrada.getIdTipoIdentificacion());
 		SsptTipoCliente tipoCliente = tipoClienteService.buscarPorId(entrada.getIdTipoCliente());
+		SsptMunicipio municipio = municipioser.getPorId(entrada.getIdMunicipio());
 
 		if (tipoId == null || tipoCliente == null) {
 			return null;
@@ -78,9 +83,10 @@ public class ClienteController {
 		client.setIdentificacion(entrada.getIdentificacion());
 
 		client.setTipoIdentificacion(tipoId);	
-		client.setTipoCliente(tipoCliente);		
+		client.setTipoCliente(tipoCliente);	
+		client.setMunicipio(municipio);
 
-		return api;
+		return service.guardar(client);
 	}
 	
 //	@PostMapping("save")
@@ -136,6 +142,18 @@ public class ClienteController {
 	public SsptCliente GetPorEstado(@RequestBody EstadoCliente e) {
 		
 		return service.GetPorEstado(e);
+	}
+	
+	@PostMapping("cambiarEstado/{id}/{estado}")
+	public SsptCliente CambiarEstado(@PathVariable int id, @PathVariable String estado) {
+		
+		SsptCliente cli = this.GetPorId(id);
+		
+		EstadoCliente es = cli.getEstadoCliente();
+		es.setNombre(estado);
+		cli.setEstadoCliente(es);
+		return service.guardar(cli);
+		
 	}
 
 }

@@ -123,6 +123,45 @@ public class SsptCliente implements Serializable {
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
 
+	
+	public SsptCliente(int id, String identificacion, String correo, String nombre1, String nombre2, String apellido1,
+			String apellido2, String telefono, String direccion, String dv, Integer ibc, String nombreCompleto,
+			String lugarExpedicion, Date fechaNacimiento, Date fechaExpedicion, Date fechaAfiliacion, Date fechaRetiro,
+			Date fechaRegistro, Date fechaActualizacion, EstadoCliente estadoCliente,
+			SsptTipoIdentificacion tipoIdentificacion, SsptTipoCliente tipoCliente, SsptCliente clienteDependiente,
+			SsptMunicipio municipio, Set<SsptSoporteCliente> soportes) {
+		super();
+		this.id = id;
+		this.identificacion = identificacion;
+		this.correo = correo;
+		this.nombre1 = nombre1;
+		this.nombre2 = nombre2;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.dv = dv;
+		this.ibc = ibc;
+		this.nombreCompleto = nombreCompleto;
+		this.lugarExpedicion = lugarExpedicion;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaExpedicion = fechaExpedicion;
+		this.fechaAfiliacion = fechaAfiliacion;
+		this.fechaRetiro = fechaRetiro;
+		this.fechaRegistro = fechaRegistro;
+		this.fechaActualizacion = fechaActualizacion;
+		this.estadoCliente = estadoCliente;
+		this.tipoIdentificacion = tipoIdentificacion;
+		this.tipoCliente = tipoCliente;
+		this.clienteDependiente = clienteDependiente;
+		this.municipio = municipio;
+		this.soportes = soportes;
+	}
+
+	public SsptCliente() {
+		super();
+	}
+
 	@PrePersist
 	public void prePersist() {
 		this.estadoCliente = EstadoCliente.PENDIENTE;

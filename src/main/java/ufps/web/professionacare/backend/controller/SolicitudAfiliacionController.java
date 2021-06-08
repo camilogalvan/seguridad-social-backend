@@ -1,6 +1,7 @@
 package ufps.web.professionacare.backend.controller;
 
 import ufps.web.professionacare.backend.service.SsptSolicitudAfiliacionService;
+import ufps.web.professionacare.backend.service.impl.SsptPlanServiceImpl;
 
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class SolicitudAfiliacionController {
 	@Autowired
 	public PlanController plan;
 	
+	@Autowired
+	public SsptPlanServiceImpl impl;
+	
 	@GetMapping("/findAll")
 	public List<SsptSolicitudAfiliacion> index(){
 		
@@ -58,7 +62,7 @@ public class SolicitudAfiliacionController {
 		s.setObservaciones(sol.getObservaciones());
 		s.setSsptCliente(cli.GetPorCedula(sol.getCliente()));	
 		s.setSsptUsuario( us.getUsuario(sol.getUsuario()).getUsuario());
-		s.setSsptPlan(plan.getPorTitulo(sol.getNombrePlan()));
+		s.setSsptPlan(impl.buscarPorId(sol.getPlan()));
 		
 		
 		return serv.guardar(s);

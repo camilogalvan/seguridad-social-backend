@@ -17,4 +17,9 @@ public enum EstadoCliente {
 		return this.nombre;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	
 }
