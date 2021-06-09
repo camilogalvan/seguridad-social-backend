@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import ufps.web.professionacare.backend.container.TiposDeClienteApi;
+import ufps.web.professionacare.backend.container.TiposClienteApi;
 import ufps.web.professionacare.backend.container.TiposIdentificacionApi;
 import ufps.web.professionacare.backend.model.SsptTipoIdentificacion;
 import ufps.web.professionacare.backend.service.impl.SsptTipoClienteServiceImpl;

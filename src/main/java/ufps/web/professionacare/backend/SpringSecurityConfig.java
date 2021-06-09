@@ -3,6 +3,7 @@ package ufps.web.professionacare.backend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -38,8 +39,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors()
 				.configurationSource(corsConfigurationSource).and().csrf().disable().authorizeRequests().and()
 				.authorizeRequests()
-				.antMatchers("/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", "/api/plan/activos", "/api/file/**")
-				.permitAll().anyRequest()
+				.antMatchers("/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", 
+						"/api/plan/activos", "/api/tipoDeClientes/todos", 
+						"/api/departamento/todos", "/api/municipio/getPorDepartamento/**", "/api/file/**")
+				.permitAll()
+				.antMatchers(HttpMethod.POST, "/api/solicitudes/").permitAll().anyRequest()
 				.authenticated().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
 				.addFilter(new JWTAuthenticationFilter(epsAuthenticationManager, jwtService))
 				.addFilter(new JWTAuthorizationFilter(epsAuthenticationManager, jwtService));

@@ -1,5 +1,7 @@
 package ufps.web.professionacare.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,15 +14,21 @@ import ufps.web.professionacare.backend.service.impl.SsptMunicipioServiceImpl;
 @RestController
 @RequestMapping("/api/municipio/")
 public class MunicipioController {
-	
-    @Autowired
+
+	@Autowired
 	SsptMunicipioServiceImpl service;
-    
-    
-    @GetMapping("getPorId/{id}")
-    public SsptMunicipio getPorId(@PathVariable int id) {
-    	
-    	return service.getPorId(id);
-    	
-    }
+
+	@GetMapping("getPorDepartamento/{id}")
+	public List<SsptMunicipio> getPorDepartamentoId(@PathVariable int id) {
+
+		return service.getPorDepartamento(id);
+
+	}
+
+	@GetMapping("getPorId/{id}")
+	public SsptMunicipio getPorId(@PathVariable int id) {
+
+		return service.getPorId(id);
+
+	}
 }

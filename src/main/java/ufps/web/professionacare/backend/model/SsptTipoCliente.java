@@ -18,7 +18,6 @@ public class SsptTipoCliente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private int id;
 
 	@Column(nullable = false)
@@ -26,10 +25,7 @@ public class SsptTipoCliente implements Serializable {
 
 	@Column(nullable = false, unique = true)
 	private String tipo;
-	
-	
 
-	
 	public SsptTipoCliente() {
 		super();
 	}
@@ -37,7 +33,7 @@ public class SsptTipoCliente implements Serializable {
 	public SsptTipoCliente(String tipo, String descripcion) {
 		super();
 		this.tipo = tipo;
-		this.descripcion=descripcion;
+		this.descripcion = descripcion;
 	}
 
 	public int getId() {

@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import ufps.web.professionacare.backend.model.SsptTipoCliente;
-import ufps.web.professionacare.backend.model.SsptUsuario;
 
-public class TiposDeClienteApi implements Serializable {
+public class TiposClienteApi implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<SsptTipoCliente> tiposCliente;
@@ -19,5 +18,4 @@ public class TiposDeClienteApi implements Serializable {
 		this.tiposCliente = tiposCliente;
 	}
 
-	
 }
