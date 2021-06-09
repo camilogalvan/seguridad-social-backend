@@ -1,6 +1,9 @@
 package ufps.web.professionacare.backend.service.impl;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,13 @@ public class SsptTipoClienteServiceImpl implements SsptTipoClienteService {
 	public SsptTipoCliente buscarPorId(Integer id) {
 		return repository.findById(id).orElse(null);
 	}
+
+	@Override
+	public List<SsptTipoCliente> get() {
+		
+		return (List<SsptTipoCliente>) repository.findAll();
+	}
+	
+	
 
 }
