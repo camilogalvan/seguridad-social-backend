@@ -8,7 +8,6 @@ import ufps.web.professionacare.backend.service.SsptSolicitudAfiliacionService;
 import ufps.web.professionacare.backend.service.SsptTipoClienteService;
 import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
 import ufps.web.professionacare.backend.service.SsptUsuarioService;
-import ufps.web.professionacare.backend.util.ValidationException;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -16,8 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ufps.web.professionacare.backend.container.PlanesApi;
 import ufps.web.professionacare.backend.container.SolicitudEntradaApi;
-import ufps.web.professionacare.backend.container.SolicitudesApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.enums.EstadoSolicitudAfiliacion;
 import ufps.web.professionacare.backend.model.*;
