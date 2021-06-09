@@ -42,6 +42,7 @@ public class ClienteController {
 	@Autowired
 	private SsptTipoClienteService tipoClienteService;
 	
+	
 	@Autowired 
 	private SsptMunicipioService municipioser;
 	

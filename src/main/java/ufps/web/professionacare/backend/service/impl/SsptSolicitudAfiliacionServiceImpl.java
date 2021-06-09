@@ -26,7 +26,7 @@ public class SsptSolicitudAfiliacionServiceImpl implements SsptSolicitudAfiliaci
 	@Override
 	public List<SsptSolicitudAfiliacion> Get() {
 		
-		return (List<SsptSolicitudAfiliacion>) s.findAll();
+		return (List<SsptSolicitudAfiliacion>) s.findAllOrderByfechaRespuesta();
 	}
 
 	@Override

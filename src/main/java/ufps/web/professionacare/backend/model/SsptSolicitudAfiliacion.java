@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.enums.EstadoSolicitudAfiliacion;
 
 @Entity
@@ -77,7 +78,9 @@ public class SsptSolicitudAfiliacion implements Serializable {
 	protected void prePersist() {
 		this.estadoSolicitud = EstadoSolicitudAfiliacion.PENDIENTE;
 		this.fechaRegistro = new Date();
+	
 	}
+	
 
 	public int getId() {
 		return id;
