@@ -3,7 +3,7 @@ package ufps.web.professionacare.backend.service;
 
 public interface EmailService {
 
-	public void sendMessageWithAttachment(String asunto, String mensaje);
+	public void sendMessageWithAttachment(String asunto, String mensaje, String destino);
 
 	public void sendMessageWithError(Exception error);
 

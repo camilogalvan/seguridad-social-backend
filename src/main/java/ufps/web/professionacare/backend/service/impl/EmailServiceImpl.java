@@ -40,14 +40,14 @@ public class EmailServiceImpl implements EmailService {
 
 	@Async
 	@Override
-	public void sendMessageWithAttachment(String asunto, String mensaje) {
+	public void sendMessageWithAttachment(String asunto, String mensaje, String destino) {
 
 		MimeMessage message = emailSender.createMimeMessage();
 
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-			helper.setTo(notificacionesTo);
+			helper.setTo(destino);
 			helper.setSubject(asunto);
 			helper.setText(mensaje, true);
 

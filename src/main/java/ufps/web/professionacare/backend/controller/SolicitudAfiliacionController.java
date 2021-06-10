@@ -1,5 +1,6 @@
 package ufps.web.professionacare.backend.controller;
 
+import ufps.web.professionacare.backend.service.EmailService;
 import ufps.web.professionacare.backend.service.SsptClienteService;
 import ufps.web.professionacare.backend.service.SsptFileService;
 import ufps.web.professionacare.backend.service.SsptMunicipioService;
@@ -22,10 +23,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ufps.web.professionacare.backend.container.SolicitudApi;
 import ufps.web.professionacare.backend.container.SolicitudEntradaApi;
+import ufps.web.professionacare.backend.container.SolicitudRespuestaEntradaApi;
 import ufps.web.professionacare.backend.container.SolicitudesApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.enums.EstadoSolicitudAfiliacion;
@@ -52,15 +56,15 @@ public class SolicitudAfiliacionController {
 	
 	@Autowired
 	private SsptTipoClienteService tipoClienteService;
-	
-	@Autowired 
-	ClienteController ccient;
-	
+		
 	@Autowired 
 	private SsptMunicipioService municipioser;
 
 	@Autowired
 	private SsptFileService fileService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping("findAll")
 	public List<SsptSolicitudAfiliacion> index(){
@@ -75,6 +79,20 @@ public class SolicitudAfiliacionController {
 
 		try {
 			api.setSolicitudes(service.Get());
+		} catch (Exception e) {
+			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(api, HttpStatus.OK);
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<SolicitudApi> getById(@PathVariable Integer id) {
+
+		SolicitudApi api = new SolicitudApi();
+
+		try {
+			api.setSolicitud(service.GetPorId(id));;
 		} catch (Exception e) {
 			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
 		}
@@ -140,13 +158,20 @@ public class SolicitudAfiliacionController {
 		return service.guardar(solicitud);
 	}
 	
-	@PostMapping("responder/{id}/{rt}")
-	public SsptSolicitudAfiliacion responder(@PathVariable int id, @PathVariable String rt) {
+	@PostMapping("responder/{id}")
+	public SsptSolicitudAfiliacion responder(@PathVariable int id, @RequestBody SolicitudRespuestaEntradaApi entrada) {
 		
 		SsptSolicitudAfiliacion soli = service.GetPorId(id);
-		
-		soli.setRespuesta(rt);
+
+		soli.setEstadoSolicitud(EstadoSolicitudAfiliacion.valueOf(entrada.getRespuesta()));
+		soli.setRespuesta(entrada.getObservacion());
 		soli.setFechaRespuesta(new Date());
+		
+		emailService.sendMessageWithAttachment("Respuesta de Solicitud de Afiliación", 
+				"<h1>Respuesta de solicitud</h1>"
+				+ "<p>Esta es su respuesta: <b>"+ entrada.getRespuesta() +"</b></p>", 
+				soli.getSsptCliente().getCorreo());
+		
 		return service.guardar(soli);
 	}
 	
