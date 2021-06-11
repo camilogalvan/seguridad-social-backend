@@ -2,6 +2,7 @@ package ufps.web.professionacare.backend.controller;
 
 import ufps.web.professionacare.backend.service.EmailService;
 import ufps.web.professionacare.backend.service.SsptClienteService;
+import ufps.web.professionacare.backend.service.SsptEmpresaService;
 import ufps.web.professionacare.backend.service.SsptFileService;
 import ufps.web.professionacare.backend.service.SsptMunicipioService;
 import ufps.web.professionacare.backend.service.SsptPlanService;
@@ -11,6 +12,7 @@ import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
 import ufps.web.professionacare.backend.service.SsptUsuarioService;
 import ufps.web.professionacare.backend.util.ValidationException;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -31,6 +33,7 @@ import ufps.web.professionacare.backend.container.SolicitudApi;
 import ufps.web.professionacare.backend.container.SolicitudEntradaApi;
 import ufps.web.professionacare.backend.container.SolicitudRespuestaEntradaApi;
 import ufps.web.professionacare.backend.container.SolicitudesApi;
+import ufps.web.professionacare.backend.container.SolicitudesBusquedaEntradaApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.enums.EstadoSolicitudAfiliacion;
 import ufps.web.professionacare.backend.model.*;
@@ -44,6 +47,9 @@ public class SolicitudAfiliacionController {
 	
 	@Autowired
 	public SsptClienteService clienteService;
+
+	@Autowired
+	public SsptEmpresaService empresaService;
 	
 	@Autowired
 	public SsptUsuarioService usuarioService;
@@ -79,6 +85,27 @@ public class SolicitudAfiliacionController {
 
 		try {
 			api.setSolicitudes(service.Get());
+		} catch (Exception e) {
+			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(api, HttpStatus.OK);
+	}
+	
+	@PostMapping("busqueda")
+	public ResponseEntity<SolicitudesApi> getByBusqueda(@RequestBody SolicitudesBusquedaEntradaApi entrada) {
+
+		SolicitudesApi api = new SolicitudesApi();
+
+		Date fecha = null;
+		try {
+			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(entrada.getFecha());
+		} catch (Exception e) {
+		}
+
+		try {
+			
+			api.setSolicitudes(service.busqueda(entrada.getBusqueda(), entrada.getEstado(), fecha, entrada.getPorFecha()));
 		} catch (Exception e) {
 			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
 		}
@@ -167,9 +194,42 @@ public class SolicitudAfiliacionController {
 		soli.setRespuesta(entrada.getObservacion());
 		soli.setFechaRespuesta(new Date());
 		
-		emailService.sendMessageWithAttachment("Respuesta de Solicitud de Afiliación", 
-				"<h1>Respuesta de solicitud</h1>"
-				+ "<p>Esta es su respuesta: <b>"+ entrada.getRespuesta() +"</b></p>", 
+		SsptEmpresa empresa = empresaService.getEmpresaActual();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		String cuerpoMensaje = "<h1>Respuesta de Solicitud de Afiliación</h1>\r\n"
+				+ "<p>Cordial Saludo <b>%s</b></p>\r\n"
+				+ "<br>\r\n"
+				+ "<p>Le informamos que se ha dado respuesta a su solicitud con número de identificación <b>%s</b>. La respuesta a su solicitud es: <b><i>%s</i></b>, a continuación encontrará el detalle de su respuesta.</p>\r\n"
+				+ "<br>\r\n"
+				+ "<p><span><b>Observaciones: </b></span>%s</p>\r\n"
+				+ "<p><span><b>Fecha de respuesta: </b></span>%s</p>\r\n"
+				+ "<br>\r\n"
+				+ "<hr>\r\n"
+				+ "<footer>\r\n"
+				+ "    <p><span><b>%s</b></span></p>\r\n"
+				+ "    <p>Dirección: <span><b>%s</b></span></p>\r\n"
+				+ "    <p>Teléfonos: <span><b>%s</b></span></p>\r\n"
+				+ "    <p>Correo: <span><b>%s</b></span></p>\r\n"
+				+ "</footer>\r\n"
+				+ "<br>\r\n"
+				+ "<hr>\r\n"
+				+ "<p><i>***!!! FAVOR NO RESPONDER A ESTE CORREO, ES SOLO DE GESTIÓN AUTOMÁTICA Y NO SE MONITOREA ¡¡¡***.</i></p>\r\n"
+				+ "<hr>";
+		
+		cuerpoMensaje = String.format(cuerpoMensaje, 
+				soli.getSsptCliente().getNombreCompleto(), 
+				soli.getSsptCliente().getIdentificacion(),
+				soli.getEstadoSolicitud().getNombre(),
+				soli.getRespuesta(),
+				format.format(soli.getFechaRespuesta()),
+				empresa.getNombre(),
+				empresa.getDireccion(),
+				empresa.getTelefono(),
+				empresa.getEmail());
+		
+		emailService.sendMessageWithAttachment("PROFESSIONAL CARE - RESPUESTA DE AFILIACIÓN", cuerpoMensaje, 
 				soli.getSsptCliente().getCorreo());
 		
 		return service.guardar(soli);

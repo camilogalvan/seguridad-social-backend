@@ -364,5 +364,9 @@ public class SsptCliente implements Serializable {
 	public void setClienteDependiente(SsptCliente clienteDependiente) {
 		this.clienteDependiente = clienteDependiente;
 	}
+	
+	public String getNombreCompleto() {
+		return this.nombre1+(this.nombre2 != null ? " "+ this.nombre2:"")+" "+ this.apellido1+" "+(this.apellido2 != null ? this.apellido2: "");
+	}
 
 }

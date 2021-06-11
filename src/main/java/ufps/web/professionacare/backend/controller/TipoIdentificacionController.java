@@ -5,29 +5,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import ufps.web.professionacare.backend.container.TiposClienteApi;
 import ufps.web.professionacare.backend.container.TiposIdentificacionApi;
-import ufps.web.professionacare.backend.model.SsptTipoIdentificacion;
-import ufps.web.professionacare.backend.service.impl.SsptTipoClienteServiceImpl;
-import ufps.web.professionacare.backend.service.impl.SsptTipoIdentificacionServiceImpl;
+import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
 import ufps.web.professionacare.backend.util.ValidationException;
 
 @RestController
-@RequestMapping("/api/tipoDeClientes/")
+@RequestMapping("/api/tipoDeIdentificacion/")
 public class TipoIdentificacionController {
 
 	@Autowired
-	private SsptTipoIdentificacionServiceImpl service;
+	private SsptTipoIdentificacionService service;
 
 	@Secured({ "ROLE_ADMIN" })
-	@GetMapping("todoss")
+	@GetMapping("todos")
 	public ResponseEntity<TiposIdentificacionApi> getTodos() {
 		TiposIdentificacionApi api = new TiposIdentificacionApi();
 		try {
