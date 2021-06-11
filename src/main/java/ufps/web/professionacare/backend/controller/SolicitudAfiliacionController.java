@@ -105,7 +105,7 @@ public class SolicitudAfiliacionController {
 
 		try {
 			
-			api.setSolicitudes(service.busqueda(entrada.getBusqueda(), entrada.getEstado(), fecha, entrada.getPorFecha()));
+			api.setSolicitudes(service.busqueda(entrada.getBusqueda().toUpperCase(), entrada.getEstado(), fecha, entrada.getPorFecha()));
 		} catch (Exception e) {
 			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
 		}
