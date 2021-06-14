@@ -2,6 +2,7 @@ package ufps.web.professionacare.backend.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -70,6 +72,9 @@ public class SsptSolicitudAfiliacion implements Serializable {
 	@OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<SsptSoporteAfiliacion> soportes;
+	
+	@OneToMany(mappedBy = "id_afiliacion",cascade = CascadeType.ALL)
+	private List<SsptOrdenServicio> ordenes;
 
 	@PrePersist
 	protected void prePersist() {
