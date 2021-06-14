@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", 
 						"/api/plan/activos", "/api/tipoDeClientes/todos", 
-						"/api/departamento/todos", "/api/municipio/getPorDepartamento/**", "/api/file/**")
+						"/api/departamento/todos", "/api/municipio/getPorDepartamento/**", "/api/file/**", "/api/ordenes/**", "/api/solicitudes/**")
 				.permitAll()
 				.antMatchers(HttpMethod.POST, "/api/solicitudes/").permitAll().anyRequest()
 				.authenticated().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()

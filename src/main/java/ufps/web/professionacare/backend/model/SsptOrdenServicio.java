@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 
 
 @Entity
@@ -20,13 +23,16 @@ public class SsptOrdenServicio implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(nullable = false)
 	private Date fecha_orden;
 	
 	@Column(nullable = false)
 	private Date fecha_limite;
+	
+	@Column(nullable = false)
+	private Integer precio;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_afiliacion",referencedColumnName = "id")
@@ -37,21 +43,78 @@ public class SsptOrdenServicio implements Serializable {
 		
 	}
 	
-	public SsptOrdenServicio(int id, Date fecha_orden, Date fecha_limite, SsptSolicitudAfiliacion id_afiliacion) {
+
+	
+	
+
+
+
+	public SsptOrdenServicio(int id, Date fecha_orden, Date fecha_limite, Integer precio,
+			SsptSolicitudAfiliacion id_afiliacion) {
 		super();
 		this.id = id;
 		this.fecha_orden = fecha_orden;
 		this.fecha_limite = fecha_limite;
+		this.precio = precio;
 		this.id_afiliacion = id_afiliacion;
 	}
 
-	public int getId() {
+
+
+
+
+
+
+	@PrePersist
+	public void prePersist() {
+		Date f = new Date();
+		this.fecha_orden= f;
+		this.fecha_limite= f;
+	}
+
+
+	
+	
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+
+
+
+
+
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+
+
+
+
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+
+
+
+
+
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
+	}
+
+
+
+
+
+
 
 	public Date getFecha_orden() {
 		return fecha_orden;

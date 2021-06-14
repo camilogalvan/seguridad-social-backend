@@ -35,7 +35,7 @@ public class SsptSolicitudAfiliacion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "estado_solicitud", nullable = false)
