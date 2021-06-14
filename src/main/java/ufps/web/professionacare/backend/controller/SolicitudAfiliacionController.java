@@ -232,27 +232,24 @@ public class SolicitudAfiliacionController {
 		emailService.sendMessageWithAttachment("PROFESSIONAL CARE - RESPUESTA DE AFILIACIÓN", cuerpoMensaje, 
 				soli.getSsptCliente().getCorreo());
 		
-		return service.guardar(soli);
-	}
-	
-	@PostMapping("cambiarEstado/{id}/{estado}")
-	public SsptSolicitudAfiliacion cambiarEstado(@PathVariable int id , @PathVariable String estado) {
-		
-		SsptSolicitudAfiliacion soli = service.GetPorId(id);
-		
-		soli.setEstadoSolicitud(EstadoSolicitudAfiliacion.valueOf(estado));
-		SsptCliente cli = soli.getSsptCliente();
-		
-		
-		if(estado.equals("APROBADA")) {
-			
-			cli.setEstadoCliente(EstadoCliente.valueOf("AFILIADO"));
+		try {
+			soli = service.guardar(soli);
+			if (soli.getEstadoSolicitud().equals(EstadoSolicitudAfiliacion.APROBADA)) {
+				SsptCliente cliente = soli.getSsptCliente();
+				cliente.setPlan(soli.getSsptPlan());
+				cliente.setEstadoCliente(EstadoCliente.AFILIADO);
+			}
+			if (soli.getEstadoSolicitud().equals(EstadoSolicitudAfiliacion.NEGADA)) {
+				SsptCliente cliente = soli.getSsptCliente();
+				cliente.setEstadoCliente(EstadoCliente.NEGADO);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		else {
-			cli.setEstadoCliente(EstadoCliente.valueOf("NEGADO"));
-		}
+				
 		
-		return service.guardar(soli);
+		
+		return soli;
 	}
 	
 	

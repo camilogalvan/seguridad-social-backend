@@ -2,6 +2,7 @@ package ufps.web.professionacare.backend.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -67,8 +68,6 @@ public class SsptCliente implements Serializable {
 
 	@Column
 	private Integer ibc;
-	
-	private String nombreCompleto;
 
 	@Column(name = "lugar_expedicion")
 	private String lugarExpedicion;
@@ -109,57 +108,28 @@ public class SsptCliente implements Serializable {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_tipo_cliente", referencedColumnName = "id")
-	private SsptTipoCliente tipoCliente;	
+	private SsptTipoCliente tipoCliente;
 
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_cliente_dependiente", referencedColumnName = "id")
-	private SsptCliente clienteDependiente;	
+	private SsptCliente clienteDependiente;
 
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
 	private SsptMunicipio municipio;
 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_plan", referencedColumnName = "id")
+	private SsptPlan plan;
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
 
-	
-	public SsptCliente(int id, String identificacion, String correo, String nombre1, String nombre2, String apellido1,
-			String apellido2, String telefono, String direccion, String dv, Integer ibc, String nombreCompleto,
-			String lugarExpedicion, Date fechaNacimiento, Date fechaExpedicion, Date fechaAfiliacion, Date fechaRetiro,
-			Date fechaRegistro, Date fechaActualizacion, EstadoCliente estadoCliente,
-			SsptTipoIdentificacion tipoIdentificacion, SsptTipoCliente tipoCliente, SsptCliente clienteDependiente,
-			SsptMunicipio municipio, Set<SsptSoporteCliente> soportes) {
-		super();
-		this.id = id;
-		this.identificacion = identificacion;
-		this.correo = correo;
-		this.nombre1 = nombre1;
-		this.nombre2 = nombre2;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.dv = dv;
-		this.ibc = ibc;
-		this.nombreCompleto = nombreCompleto;
-		this.lugarExpedicion = lugarExpedicion;
-		this.fechaNacimiento = fechaNacimiento;
-		this.fechaExpedicion = fechaExpedicion;
-		this.fechaAfiliacion = fechaAfiliacion;
-		this.fechaRetiro = fechaRetiro;
-		this.fechaRegistro = fechaRegistro;
-		this.fechaActualizacion = fechaActualizacion;
-		this.estadoCliente = estadoCliente;
-		this.tipoIdentificacion = tipoIdentificacion;
-		this.tipoCliente = tipoCliente;
-		this.clienteDependiente = clienteDependiente;
-		this.municipio = municipio;
-		this.soportes = soportes;
-	}
+	@OneToMany(mappedBy = "idCliente", cascade = CascadeType.ALL)
+	private List<SsptOrdenServicio> ordenes;
 
 	public SsptCliente() {
-		super();
 	}
 
 	@PrePersist
@@ -364,9 +334,26 @@ public class SsptCliente implements Serializable {
 	public void setClienteDependiente(SsptCliente clienteDependiente) {
 		this.clienteDependiente = clienteDependiente;
 	}
-	
+
+	public List<SsptOrdenServicio> getOrdenes() {
+		return ordenes;
+	}
+
+	public void setOrdenes(List<SsptOrdenServicio> ordenes) {
+		this.ordenes = ordenes;
+	}
+
+	public SsptPlan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(SsptPlan plan) {
+		this.plan = plan;
+	}
+
 	public String getNombreCompleto() {
-		return this.nombre1+(this.nombre2 != null ? " "+ this.nombre2:"")+" "+ this.apellido1+" "+(this.apellido2 != null ? this.apellido2: "");
+		return this.nombre1 + (this.nombre2 != null ? " " + this.nombre2 : "") + " " + this.apellido1 + " "
+				+ (this.apellido2 != null ? this.apellido2 : "");
 	}
 
 }

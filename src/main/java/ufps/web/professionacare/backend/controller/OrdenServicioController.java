@@ -11,50 +11,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.OrdenEntrada;
+import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptOrdenServicio;
-import ufps.web.professionacare.backend.model.SsptSolicitudAfiliacion;
-import ufps.web.professionacare.backend.service.SsptSolicitudAfiliacionService;
+import ufps.web.professionacare.backend.service.SsptClienteService;
 import ufps.web.professionacare.backend.service.impl.SsptOrdenServicioServiceImpl;
-import ufps.web.professionacare.backend.service.impl.SsptSolicitudAfiliacionServiceImpl;
 
 @RestController
-@RequestMapping("/api/ordenes/")
-public class ordenServicioController {
+@RequestMapping("/api/ordenes")
+public class OrdenServicioController {
 
 	@Autowired
-	SsptOrdenServicioServiceImpl service;
-	
+	private SsptOrdenServicioServiceImpl service;
+
 	@Autowired
-	SsptSolicitudAfiliacionServiceImpl ser;
-	
-	@PostMapping(value = "save")
+	private SsptClienteService clienteService;
+
+	@PostMapping(value = "/save")
 	public SsptOrdenServicio save(@RequestBody OrdenEntrada entrada) {
-		
+
 		SsptOrdenServicio orden = new SsptOrdenServicio();
-		
-		SsptSolicitudAfiliacion afiliacion= ser.GetPorId(entrada.getIdAfiliacion());
-		if(afiliacion!=null) {
-		orden.setId_afiliacion(afiliacion);	
-		orden.setPrecio(orden.getId_afiliacion().getSsptPlan().getPrecio());
-		orden.prePersist();
-		return service.save(orden);
-		}
-		
-		else {
+
+		SsptCliente cliente = clienteService.GetPorId(entrada.getIdCliente());
+		if (cliente != null) {
+			orden.setCliente(cliente);;;
+			orden.setPrecio(cliente.getPlan().getPrecio());
+			orden.prePersist();
+			return service.save(orden);
+		} else {
 			return null;
 		}
 	}
-	
-	@GetMapping("getId/{id}")
+
+	@GetMapping("/getId/{id}")
 	public SsptOrdenServicio getById(@PathVariable int id) {
-		
+
 		return service.getById(id);
 	}
-	
-	@GetMapping("all")
-	public List<SsptOrdenServicio> getAll(){
-		
+
+	@GetMapping("/all")
+	public List<SsptOrdenServicio> getAll() {
+
 		return service.getAll();
 	}
-	
+
 }

@@ -2,24 +2,22 @@ package ufps.web.professionacare.backend.container;
 
 import java.io.Serializable;
 
-public class OrdenEntrada implements Serializable{
+public class OrdenEntrada implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	int idAfiliacion;
 
-	
+	int idCliente;
+
 	public OrdenEntrada() {
 		super();
 	}
 
-	public int getIdAfiliacion() {
-		return idAfiliacion;
+	public int getIdCliente() {
+		return idCliente;
 	}
 
-	public void setIdAfiliacion(int idAfiliacion) {
-		this.idAfiliacion = idAfiliacion;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
-	
-	
+
 }
