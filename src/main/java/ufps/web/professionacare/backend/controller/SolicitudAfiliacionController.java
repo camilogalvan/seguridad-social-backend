@@ -21,6 +21,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -187,11 +189,15 @@ public class SolicitudAfiliacionController {
 	
 	@PostMapping("responder/{id}")
 	public SsptSolicitudAfiliacion responder(@PathVariable int id, @RequestBody SolicitudRespuestaEntradaApi entrada) {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		SsptUsuario usuarioRta =  usuarioService.buscarPorUsername(authentication.getName());
 		
 		SsptSolicitudAfiliacion soli = service.GetPorId(id);
 
 		soli.setEstadoSolicitud(EstadoSolicitudAfiliacion.valueOf(entrada.getRespuesta()));
 		soli.setRespuesta(entrada.getObservacion());
+		soli.setSsptUsuario(usuarioRta);
 		soli.setFechaRespuesta(new Date());
 		
 		SsptEmpresa empresa = empresaService.getEmpresaActual();
@@ -234,20 +240,20 @@ public class SolicitudAfiliacionController {
 		
 		try {
 			soli = service.guardar(soli);
+			SsptCliente cliente = soli.getSsptCliente();
+			
 			if (soli.getEstadoSolicitud().equals(EstadoSolicitudAfiliacion.APROBADA)) {
-				SsptCliente cliente = soli.getSsptCliente();
 				cliente.setPlan(soli.getSsptPlan());
+				cliente.setAsesor(soli.getSsptUsuario());
 				cliente.setEstadoCliente(EstadoCliente.AFILIADO);
 			}
 			if (soli.getEstadoSolicitud().equals(EstadoSolicitudAfiliacion.NEGADA)) {
-				SsptCliente cliente = soli.getSsptCliente();
 				cliente.setEstadoCliente(EstadoCliente.NEGADO);
 			}
+			clienteService.guardar(cliente);
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
-				
-		
+		}		
+	
 		
 		return soli;
 	}

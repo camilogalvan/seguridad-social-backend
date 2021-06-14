@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 
 @Entity
 @Table(name = "sspt_orden_servicio")
@@ -29,12 +33,20 @@ public class SsptOrdenServicio implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechaOrden;
 
+	@Column(name = "fecha_pago", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaPago;
+
 	@Column(name = "fecha_limite", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date fechaLimite;
 
 	@Column(nullable = false)
 	private Integer precio;
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "estado_orden", nullable = false)
+	private EstadoCliente estadoOrden;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
@@ -45,9 +57,7 @@ public class SsptOrdenServicio implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		Date f = new Date();
-		this.fechaOrden = f;
-		this.fechaLimite = f;
+		this.fechaOrden = new Date();
 	}
 
 	public Integer getId() {
@@ -88,6 +98,22 @@ public class SsptOrdenServicio implements Serializable {
 
 	public void setCliente(SsptCliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Date getFechaPago() {
+		return fechaPago;
+	}
+
+	public void setFechaPago(Date fechaPago) {
+		this.fechaPago = fechaPago;
+	}
+
+	public EstadoCliente getEstadoOrden() {
+		return estadoOrden;
+	}
+
+	public void setEstadoOrden(EstadoCliente estadoOrden) {
+		this.estadoOrden = estadoOrden;
 	}
 
 }

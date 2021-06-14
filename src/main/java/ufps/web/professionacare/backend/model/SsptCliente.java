@@ -122,6 +122,10 @@ public class SsptCliente implements Serializable {
 	@JoinColumn(name = "id_plan", referencedColumnName = "id")
 	private SsptPlan plan;
 
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "id_asesor", referencedColumnName = "id")
+	private SsptUsuario asesor;
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
@@ -349,6 +353,14 @@ public class SsptCliente implements Serializable {
 
 	public void setPlan(SsptPlan plan) {
 		this.plan = plan;
+	}
+
+	public SsptUsuario getAsesor() {
+		return asesor;
+	}
+
+	public void setAsesor(SsptUsuario asesor) {
+		this.asesor = asesor;
 	}
 
 	public String getNombreCompleto() {
