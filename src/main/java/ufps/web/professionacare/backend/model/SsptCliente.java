@@ -83,7 +83,7 @@ public class SsptCliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_afiliacion")
 	private Date fechaAfiliacion;
-
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_retiro")
 	private Date fechaRetiro;
@@ -130,7 +130,7 @@ public class SsptCliente implements Serializable {
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
 
-	@OneToMany(mappedBy = "idCliente", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<SsptOrdenServicio> ordenes;
 
 	public SsptCliente() {

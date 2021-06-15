@@ -84,10 +84,10 @@ public class ClienteController {
 		return service.GetPorCedula(cedula);
 	}
 
-	@GetMapping("porEstado")
-	public SsptCliente GetPorEstado(@RequestBody EstadoCliente e) {
-		return service.GetPorEstado(e);
-	}
+//	@GetMapping("porEstado")
+//	public SsptCliente GetPorEstado(@RequestBody EstadoCliente e) {
+//		return service.GetPorEstado(e);
+//	}
 
 	@PostMapping("cambiarEstado/{id}/{estado}")
 	public SsptCliente CambiarEstado(@PathVariable int id, @PathVariable String estado) {

@@ -45,7 +45,7 @@ public class SsptOrdenServicio implements Serializable {
 	private Integer precio;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "estado_orden", nullable = false)
+	@Column(name = "estado_orden", nullable = true)
 	private EstadoCliente estadoOrden;
 
 	@ManyToOne(fetch = FetchType.LAZY)
