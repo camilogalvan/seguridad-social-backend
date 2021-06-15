@@ -118,7 +118,7 @@ public class SsptCliente implements Serializable {
 	@JoinColumn(name = "id_municipio", referencedColumnName = "id_municipio")
 	private SsptMunicipio municipio;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_plan", referencedColumnName = "id")
 	private SsptPlan plan;
 
@@ -130,7 +130,7 @@ public class SsptCliente implements Serializable {
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<SsptOrdenServicio> ordenes;
 
 	public SsptCliente() {
