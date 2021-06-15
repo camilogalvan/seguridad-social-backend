@@ -58,6 +58,7 @@ public class SsptOrdenServicio implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		this.fechaOrden = new Date();
+		this.fechaLimite= new Date();
 	}
 
 	public Integer getId() {

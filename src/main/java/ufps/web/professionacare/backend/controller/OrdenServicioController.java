@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.OrdenEntrada;
+import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptOrdenServicio;
 import ufps.web.professionacare.backend.service.SsptClienteService;
@@ -52,6 +53,33 @@ public class OrdenServicioController {
 	public List<SsptOrdenServicio> getAll() {
 
 		return service.getAll();
+	}
+	
+	@GetMapping("generarTodos")
+	public boolean generarOrdenes(){
+		
+		List<SsptCliente> clientes=clienteService.Get();
+		
+		EstadoCliente estado = EstadoCliente.AFILIADO;
+		try {
+		for(SsptCliente cliente: clientes) {
+			if(cliente.getEstadoCliente().equals(estado) && cliente.getPlan()!=null) {
+				SsptOrdenServicio orden = new SsptOrdenServicio();
+				orden.setCliente(cliente);
+				orden.setPrecio(cliente.getPlan().getPrecio());
+				orden.prePersist();
+				service.save(orden);
+			}
+			
+			
+		}
+		return true;
+		
+	}catch(Exception e) {
+		System.out.print(e);
+		return false;
+	}
+		
 	}
 
 }
