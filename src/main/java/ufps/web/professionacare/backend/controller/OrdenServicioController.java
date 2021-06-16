@@ -15,14 +15,14 @@ import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptOrdenServicio;
 import ufps.web.professionacare.backend.service.SsptClienteService;
-import ufps.web.professionacare.backend.service.impl.SsptOrdenServicioServiceImpl;
+import ufps.web.professionacare.backend.service.SsptOrdenServicioService;
 
 @RestController
 @RequestMapping("/api/ordenes")
 public class OrdenServicioController {
 
 	@Autowired
-	private SsptOrdenServicioServiceImpl service;
+	private SsptOrdenServicioService service;
 
 	@Autowired
 	private SsptClienteService clienteService;

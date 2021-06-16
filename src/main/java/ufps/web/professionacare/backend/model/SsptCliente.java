@@ -2,7 +2,6 @@ package ufps.web.professionacare.backend.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -83,7 +82,7 @@ public class SsptCliente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_afiliacion")
 	private Date fechaAfiliacion;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_retiro")
 	private Date fechaRetiro;
@@ -131,7 +130,9 @@ public class SsptCliente implements Serializable {
 	private Set<SsptSoporteCliente> soportes;
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private List<SsptOrdenServicio> ordenes;
+	@JsonManagedReference
+	@JsonIgnore
+	private Set<SsptOrdenServicio> ordenes;
 
 	public SsptCliente() {
 	}
@@ -339,11 +340,11 @@ public class SsptCliente implements Serializable {
 		this.clienteDependiente = clienteDependiente;
 	}
 
-	public List<SsptOrdenServicio> getOrdenes() {
+	public Set<SsptOrdenServicio> getOrdenes() {
 		return ordenes;
 	}
 
-	public void setOrdenes(List<SsptOrdenServicio> ordenes) {
+	public void setOrdenes(Set<SsptOrdenServicio> ordenes) {
 		this.ordenes = ordenes;
 	}
 
