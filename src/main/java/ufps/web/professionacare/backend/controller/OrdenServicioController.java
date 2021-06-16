@@ -55,9 +55,9 @@ public class OrdenServicioController {
 		return service.getAll();
 	}
 	
-	@GetMapping("generarTodos")
+	@GetMapping("/generarTodos")
 	public boolean generarOrdenes(){
-		
+		System.out.print("se ejecutó");
 		List<SsptCliente> clientes=clienteService.Get();
 		
 		EstadoCliente estado = EstadoCliente.AFILIADO;
