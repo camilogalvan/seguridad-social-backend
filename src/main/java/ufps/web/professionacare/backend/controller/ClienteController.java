@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.ClienteEntrada;
+import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptMunicipio;
@@ -18,6 +19,7 @@ import ufps.web.professionacare.backend.model.SsptTipoCliente;
 import ufps.web.professionacare.backend.model.SsptTipoIdentificacion;
 import ufps.web.professionacare.backend.service.SsptClienteService;
 import ufps.web.professionacare.backend.service.SsptMunicipioService;
+import ufps.web.professionacare.backend.service.SsptOrdenServicioService;
 import ufps.web.professionacare.backend.service.SsptTipoClienteService;
 import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
 
@@ -27,6 +29,9 @@ public class ClienteController {
 
 	@Autowired
 	private SsptClienteService service;
+
+	@Autowired
+	private SsptOrdenServicioService ordenesService;
 
 	@Autowired
 	private SsptTipoIdentificacionService tipoIdentificacionService;
@@ -80,8 +85,11 @@ public class ClienteController {
 	}
 
 	@GetMapping("porCedula/{cedula}")
-	public SsptCliente GetPorCedula(@PathVariable String cedula) {
-		return service.GetPorCedula(cedula);
+	public ConsultaOrdenApi GetPorCedula(@PathVariable String cedula) {
+		ConsultaOrdenApi api = new ConsultaOrdenApi();
+		api.setCliente(service.GetPorCedula(cedula));
+		api.setOrden(ordenesService.getByCliente(api.getCliente()));
+		return api;
 	}
 
 //	@GetMapping("porEstado")

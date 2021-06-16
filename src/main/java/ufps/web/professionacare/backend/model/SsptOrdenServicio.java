@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 
 @Entity
@@ -50,6 +52,7 @@ public class SsptOrdenServicio implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
+	@JsonBackReference
 	private SsptCliente cliente;
 
 	public SsptOrdenServicio() {
