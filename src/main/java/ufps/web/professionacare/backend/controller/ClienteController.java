@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.ClienteEntrada;
+import ufps.web.professionacare.backend.container.ClientesApi;
 import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
@@ -43,9 +44,11 @@ public class ClienteController {
 	private SsptMunicipioService municipioser;
 
 	@GetMapping("todos")
-	public List<SsptCliente> getAll() {
+	public ClientesApi getAll() {
 
-		return service.Get();
+		ClientesApi api = new ClientesApi();
+		api.setClientes(service.Get());
+		return api;
 
 	}
 
