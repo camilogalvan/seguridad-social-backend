@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
 import ufps.web.professionacare.backend.container.OrdenEntrada;
 import ufps.web.professionacare.backend.container.OrdenesApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
@@ -37,7 +38,9 @@ public class OrdenServicioController {
 
 		SsptCliente cliente = clienteService.GetPorId(entrada.getIdCliente());
 		if (cliente != null) {
-			orden.setCliente(cliente);;;
+			orden.setCliente(cliente);
+			;
+			;
 			orden.setPrecio(cliente.getPlan().getPrecio());
 			orden.prePersist();
 			return service.save(orden);
@@ -59,48 +62,70 @@ public class OrdenServicioController {
 
 		return api;
 	}
-	
+
 	@GetMapping("/generarTodos")
-	public boolean generarOrdenes(){
+	public boolean generarOrdenes() {
 		System.out.print("se ejecutó");
-		List<SsptCliente> clientes=clienteService.Get();
-		
+		List<SsptCliente> clientes = clienteService.Get();
+
 		EstadoCliente estado = EstadoCliente.AFILIADO;
 		try {
-		for(SsptCliente cliente: clientes) {
-			if(cliente.getEstadoCliente().equals(estado) && cliente.getPlan()!=null) {
+			for (SsptCliente cliente : clientes) {
+				if (cliente.getEstadoCliente().equals(estado) && cliente.getPlan() != null) {
+					SsptOrdenServicio orden = new SsptOrdenServicio();
+					orden.setCliente(cliente);
+					orden.setPrecio(cliente.getPlan().getPrecio());
+					orden.prePersist();
+					service.save(orden);
+				}
+
+			}
+			return true;
+
+		} catch (Exception e) {
+			System.out.print(e);
+			return false;
+		}
+
+	}
+
+	@GetMapping("/generarOrden/{cedula}")
+	public boolean generarOrdenPorId(@PathVariable String cedula) {
+		System.out.print("se ejecutó");
+		SsptCliente cliente = clienteService.GetPorCedula(cedula);
+		EstadoCliente estado = EstadoCliente.AFILIADO;
+
+		try {
+
+			if (cliente.getEstadoCliente().equals(estado) && cliente.getPlan() != null) {
 				SsptOrdenServicio orden = new SsptOrdenServicio();
 				orden.setCliente(cliente);
 				orden.setPrecio(cliente.getPlan().getPrecio());
 				orden.prePersist();
 				service.save(orden);
+				return true;
 			}
-			
-			
+
+		} catch (Exception e) {
+			System.out.print(e);
 		}
-		return true;
-		
-	}catch(Exception e) {
-		System.out.print(e);
+
 		return false;
 	}
-		
-	}
-	
+
 	@GetMapping("/pagar/{id}")
 	public boolean pagar(@PathVariable int id) {
 		try {
-		SsptOrdenServicio orden = service.getById(id);
-		orden.setFechaPago(new Date());
-		orden.setEstadoOrden(EstadoOrden.PAGADA);
-		service.save(orden);
-		return true;
-		}catch(Exception e) {
+			SsptOrdenServicio orden = service.getById(id);
+			orden.setFechaPago(new Date());
+			orden.setEstadoOrden(EstadoOrden.PAGADA);
+			service.save(orden);
+			return true;
+		} catch (Exception e) {
 			System.err.print(e);
 			return false;
 		}
-		
-		
+
 	}
 
 }
