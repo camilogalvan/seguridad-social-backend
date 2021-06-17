@@ -72,6 +72,15 @@ public class SsptOrdenServicio implements Serializable {
 		this.id = id;
 	}
 
+	
+	public EstadoOrden getEstadoOrden() {
+		return estadoOrden;
+	}
+
+	public void setEstadoOrden(EstadoOrden estadoOrden) {
+		this.estadoOrden = estadoOrden;
+	}
+
 	public Integer getPrecio() {
 		return precio;
 	}

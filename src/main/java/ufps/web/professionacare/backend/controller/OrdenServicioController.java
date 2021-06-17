@@ -1,5 +1,6 @@
 package ufps.web.professionacare.backend.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.OrdenEntrada;
+import ufps.web.professionacare.backend.container.OrdenesApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
+import ufps.web.professionacare.backend.enums.EstadoOrden;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptOrdenServicio;
 import ufps.web.professionacare.backend.service.SsptClienteService;
@@ -50,9 +53,11 @@ public class OrdenServicioController {
 	}
 
 	@GetMapping("/all")
-	public List<SsptOrdenServicio> getAll() {
+	public OrdenesApi getAll() {
+		OrdenesApi api = new OrdenesApi();
+		api.setOrdenes(service.getAll());
 
-		return service.getAll();
+		return api;
 	}
 	
 	@GetMapping("/generarTodos")
@@ -79,6 +84,22 @@ public class OrdenServicioController {
 		System.out.print(e);
 		return false;
 	}
+		
+	}
+	
+	@GetMapping("/pagar/{id}")
+	public boolean pagar(@PathVariable int id) {
+		try {
+		SsptOrdenServicio orden = service.getById(id);
+		orden.setFechaPago(new Date());
+		orden.setEstadoOrden(EstadoOrden.PAGADA);
+		service.save(orden);
+		return true;
+		}catch(Exception e) {
+			System.err.print(e);
+			return false;
+		}
+		
 		
 	}
 
