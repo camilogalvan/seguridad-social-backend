@@ -52,12 +52,24 @@ public class EmpresaController {
 
 		SsptEmpresa proveedorSearch = service.getEmpresaActual();
 
-		proveedorSearch.setNombre(entrada.getNombre());
-
 		proveedorSearch.setDireccion(entrada.getDireccion());
 		proveedorSearch.setEmail(entrada.getEmail());
 		proveedorSearch.setTelefono(entrada.getTelefono());
-		proveedorSearch.setEnable(entrada.getEnable());
+
+		proveedorSearch.setRazonSocial(entrada.getRazonSocial());
+		proveedorSearch.setMision(entrada.getMision());
+		proveedorSearch.setVision(entrada.getVision());
+		
+		if (entrada.getUpdatePagos()) {
+			proveedorSearch.setMerchantId(entrada.getMerchantId());
+			proveedorSearch.setAccountId(entrada.getAccountId());
+			proveedorSearch.setCurrency(entrada.getCurrency());
+			proveedorSearch.setTest(entrada.getTest());
+			proveedorSearch.setResponseUrl(entrada.getResponseUrl());
+			proveedorSearch.setConfirmationUrl(entrada.getConfirmationUrl());
+			proveedorSearch.setUrl(entrada.getUrl());
+			proveedorSearch.setApi(entrada.getApi());			
+		}
 
 		if (entrada.getFile() != null) {
 			SsptFile mppFile = null;

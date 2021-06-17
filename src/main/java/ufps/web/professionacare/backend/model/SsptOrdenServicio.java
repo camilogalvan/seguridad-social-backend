@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import ufps.web.professionacare.backend.enums.EstadoCliente;
+import ufps.web.professionacare.backend.enums.EstadoOrden;
 
 @Entity
 @Table(name = "sspt_orden_servicio")
@@ -48,7 +48,7 @@ public class SsptOrdenServicio implements Serializable {
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "estado_orden", nullable = true)
-	private EstadoCliente estadoOrden;
+	private EstadoOrden estadoOrden;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id")
@@ -110,14 +110,6 @@ public class SsptOrdenServicio implements Serializable {
 
 	public void setFechaPago(Date fechaPago) {
 		this.fechaPago = fechaPago;
-	}
-
-	public EstadoCliente getEstadoOrden() {
-		return estadoOrden;
-	}
-
-	public void setEstadoOrden(EstadoCliente estadoOrden) {
-		this.estadoOrden = estadoOrden;
 	}
 
 }

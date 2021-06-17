@@ -129,7 +129,7 @@ public class SolicitudAfiliacionController {
 		return new ResponseEntity<>(api, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "", consumes = { "multipart/form-data" })
+	@PostMapping(value = "save", consumes = { "multipart/form-data" })
 	public SsptSolicitudAfiliacion guardar(@ModelAttribute SolicitudEntradaApi entrada) {
 			
 		// Verificar si ya existe

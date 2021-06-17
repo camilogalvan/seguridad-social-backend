@@ -8,20 +8,21 @@ public class EmpresaEntradaApi implements Serializable {
 	private static final long serialVersionUID = -6907517187640981714L;
 
 	private String nombre;
-
 	private String razonSocial;
-
 	private String mision;
-
 	private String vision;
-
 	private String direccion;
-
 	private String telefono;
-
 	private String email;
-
-	private Boolean enable;
+	private Boolean updatePagos;
+	private String merchantId;
+	private String accountId;
+	private String currency;
+	private String test;
+	private String responseUrl;
+	private String confirmationUrl;
+	private String url;
+	private String api;
 
 	private MultipartFile file = null;
 
@@ -81,20 +82,84 @@ public class EmpresaEntradaApi implements Serializable {
 		this.email = email;
 	}
 
-	public Boolean getEnable() {
-		return enable;
-	}
-
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
-	}
-
 	public MultipartFile getFile() {
 		return file;
 	}
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+	public Boolean getUpdatePagos() {
+		return updatePagos;
+	}
+
+	public void setUpdatePagos(Boolean updatePagos) {
+		this.updatePagos = updatePagos;
+	}
+
+	public String getMerchantId() {
+		return merchantId;
+	}
+
+	public void setMerchantId(String merchantId) {
+		this.merchantId = merchantId;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
+	}
+
+	public String getResponseUrl() {
+		return responseUrl;
+	}
+
+	public void setResponseUrl(String responseUrl) {
+		this.responseUrl = responseUrl;
+	}
+
+	public String getConfirmationUrl() {
+		return confirmationUrl;
+	}
+
+	public void setConfirmationUrl(String confirmationUrl) {
+		this.confirmationUrl = confirmationUrl;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getApi() {
+		return api;
+	}
+
+	public void setApi(String api) {
+		this.api = api;
 	}
 
 }

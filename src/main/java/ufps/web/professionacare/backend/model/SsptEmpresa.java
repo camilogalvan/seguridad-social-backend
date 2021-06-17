@@ -51,6 +51,26 @@ public class SsptEmpresa implements Serializable {
 
 	private Boolean enable;
 
+	@Column(name = "merchant_id")
+	private String merchantId;
+
+	@Column(name = "account_id")
+	private String accountId;
+
+	private String currency;
+
+	private String test;
+
+	@Column(name = "response_url")
+	private String responseUrl;
+
+	@Column(name = "confirmation_url")
+	private String confirmationUrl;
+
+	private String url;
+
+	private String api;
+
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_file", referencedColumnName = "id")
 	private SsptFile file;
@@ -176,6 +196,70 @@ public class SsptEmpresa implements Serializable {
 
 	public void setFechaActualizacion(Date fechaActualizacion) {
 		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public String getMerchantId() {
+		return merchantId;
+	}
+
+	public void setMerchantId(String merchantId) {
+		this.merchantId = merchantId;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
+	}
+
+	public String getResponseUrl() {
+		return responseUrl;
+	}
+
+	public void setResponseUrl(String responseUrl) {
+		this.responseUrl = responseUrl;
+	}
+
+	public String getConfirmationUrl() {
+		return confirmationUrl;
+	}
+
+	public void setConfirmationUrl(String confirmationUrl) {
+		this.confirmationUrl = confirmationUrl;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getApi() {
+		return api;
+	}
+
+	public void setApi(String api) {
+		this.api = api;
 	}
 
 }
