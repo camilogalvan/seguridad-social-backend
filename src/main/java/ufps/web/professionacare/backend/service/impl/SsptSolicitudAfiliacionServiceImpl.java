@@ -36,6 +36,20 @@ public class SsptSolicitudAfiliacionServiceImpl implements SsptSolicitudAfiliaci
 
 		return s.save(so);
 	}
+	
+	@Override
+	public List<SsptSolicitudAfiliacion> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal) {
+		Integer tipo = -1;
+		try {
+			tipo = EstadoSolicitudAfiliacion.valueOf(estado).ordinal();
+		} catch (Exception e) {
+		}
+		if (tipo != -1) {
+			return s.findByFechaBetweenAndEstadoOnly(fechaInicio, fechaFinal, tipo);					
+		} else {
+			return s.findByFechaBetweenOnly(fechaInicio, fechaFinal);
+		}
+	}
 
 	@Override
 	public List<SsptSolicitudAfiliacion> busqueda(String busqueda, String estado, Date fecha, Boolean porFecha) {

@@ -29,6 +29,19 @@ public interface SsptSolicitudAfiliacionRepository extends CrudRepository<SsptSo
 	public List<SsptSolicitudAfiliacion> findByFechaAndEstadoOnly(Date fecha, Integer estado);
 	
 	@Query(value = "SELECT sol.* FROM sspt_solicitud_afiliacion sol "
+			+ "where DATE(sol.fecha_registro) >= :fechaInicio and DATE(sol.fecha_registro) <= :fechaFinal "
+			+ "ORDER BY case when sol.estado_solicitud = 0 then 0 else 1 end, "
+			+ "sol.fecha_registro desc", nativeQuery=true)
+	public List<SsptSolicitudAfiliacion> findByFechaBetweenOnly(Date fechaInicio, Date fechaFinal);
+	
+	@Query(value = "SELECT sol.* FROM sspt_solicitud_afiliacion sol "
+			+ "where DATE(sol.fecha_registro) >= :fechaInicio and DATE(sol.fecha_registro) <= :fechaFinal "
+			+ "and sol.estado_solicitud = :estado "
+			+ "ORDER BY case when sol.estado_solicitud = 0 then 0 else 1 end, "
+			+ "sol.fecha_registro desc", nativeQuery=true)
+	public List<SsptSolicitudAfiliacion> findByFechaBetweenAndEstadoOnly(Date fechaInicio, Date fechaFinal, Integer estado);
+	
+	@Query(value = "SELECT sol.* FROM sspt_solicitud_afiliacion sol "
 			+ "where sol.estado_solicitud = :estado "
 			+ "ORDER BY case when sol.estado_solicitud = 0 then 0 else 1 end, "
 			+ "sol.fecha_registro desc", nativeQuery=true)

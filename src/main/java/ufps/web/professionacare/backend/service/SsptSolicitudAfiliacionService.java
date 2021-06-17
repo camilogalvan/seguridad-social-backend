@@ -13,5 +13,7 @@ public interface SsptSolicitudAfiliacionService {
 	
 	public List<SsptSolicitudAfiliacion> busqueda(String busqueda, String tipo, Date fecha, Boolean porFecha);
 	
+	public List<SsptSolicitudAfiliacion> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal);
+	
 	public SsptSolicitudAfiliacion guardar(SsptSolicitudAfiliacion s);
 }
