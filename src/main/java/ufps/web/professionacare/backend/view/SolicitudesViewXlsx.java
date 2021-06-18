@@ -26,7 +26,7 @@ public class SolicitudesViewXlsx extends AbstractXlsxView {
 
 	private String[] celdasHeader = new String[] { "IDRadicado", "TipoIdCliente", "NumIdCliente", "Nombre1", "Nombre2",
 			"Apellido1", "Apellido2", "Telefono", "Dirección", "Correo", "FechaNacimiento", "TipoCliente",
-			"Departamento", "Municipio", "CodigoMunicipio", "EstadoSolicitud", "Plan", "Servicios", "Observaciones Cliente",
+			"Departamento", "Municipio", "CodigoMunicipio", "FechaExpedición", "LugarExpedición", "CodigoActividadEconomica", "ActividadEconomica", "NivelRiesgo", "IBC", "EstadoSolicitud", "Plan", "Servicios", "Observaciones Cliente",
 			"Respuesta Solicitud", "Fecha de Solicitud", "Fecha Respuesta", "Funcionario de Respuesta" };
 
 	@SuppressWarnings("unchecked")
@@ -87,9 +87,14 @@ public class SolicitudesViewXlsx extends AbstractXlsxView {
 				row.createCell(j++).setCellValue(cliente.getCorreo());
 				row.createCell(j++).setCellValue(cliente.getFechaNacimiento() != null ? formatDate.format(cliente.getFechaNacimiento()): "");
 				row.createCell(j++).setCellValue(cliente.getTipoCliente() != null ? cliente.getTipoCliente().getDescripcion():"");
-				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ?cliente.getMunicipio().getNombreDepartamento():"");
-				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ?cliente.getMunicipio().getNombreMunicipio():"");
-				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ?cliente.getMunicipio().getCodigoDptoMpio():"");
+				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ? cliente.getMunicipio().getNombreDepartamento():"");
+				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ? cliente.getMunicipio().getNombreMunicipio():"");
+				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ? cliente.getMunicipio().getCodigoDptoMpio():"");
+				row.createCell(j++).setCellValue(cliente.getFechaExpedicion() != null ? formatDate.format(cliente.getFechaExpedicion()): "");
+				row.createCell(j++).setCellValue(cliente.getLugarExpedicion() != null ? cliente.getLugarExpedicion():"");
+				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getCodigoActividad():null);
+				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNombreActividad():"");
+				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNivelRiesgo():null);
 				row.createCell(j++).setCellValue(item.getEstadoSolicitud().getNombre());
 				row.createCell(j++).setCellValue(item.getSsptPlan() != null ? item.getSsptPlan().getTitulo():"");
 				row.createCell(j++).setCellValue(item.getSsptPlan() != null ? item.getSsptPlan().getServicios():"");
