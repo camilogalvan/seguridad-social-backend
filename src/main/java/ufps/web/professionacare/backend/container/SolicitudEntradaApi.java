@@ -15,9 +15,16 @@ public class SolicitudEntradaApi implements Serializable {
 	private String direccion;
 	private String correo;
 	private String identificacion;
+	private String dv;
+	private Integer ibc;
+	private String lugarExpedicion;
+	private String fechaNacimiento;
+	private String fechaExpedicion;
+	private Integer idAsesor;
 	private Integer idTipoIdentificacion;
 	private Integer idTipoCliente;
 	private Integer idMunicipio;
+	private Integer idActividad;
 
 	private Integer idTipoPlan;
 	private String profesion;
@@ -46,6 +53,14 @@ public class SolicitudEntradaApi implements Serializable {
 
 	public void setApellido1(String apellido1) {
 		this.apellido1 = apellido1;
+	}
+
+	public Integer getIdActividad() {
+		return idActividad;
+	}
+
+	public void setIdActividad(Integer idActividad) {
+		this.idActividad = idActividad;
 	}
 
 	public String getApellido2() {
@@ -118,6 +133,54 @@ public class SolicitudEntradaApi implements Serializable {
 
 	public void setIdTipoPlan(Integer idTipoPlan) {
 		this.idTipoPlan = idTipoPlan;
+	}
+
+	public String getDv() {
+		return dv;
+	}
+
+	public void setDv(String dv) {
+		this.dv = dv;
+	}
+
+	public Integer getIbc() {
+		return ibc;
+	}
+
+	public void setIbc(Integer ibc) {
+		this.ibc = ibc;
+	}
+
+	public String getLugarExpedicion() {
+		return lugarExpedicion;
+	}
+
+	public void setLugarExpedicion(String lugarExpedicion) {
+		this.lugarExpedicion = lugarExpedicion;
+	}
+
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getFechaExpedicion() {
+		return fechaExpedicion;
+	}
+
+	public void setFechaExpedicion(String fechaExpedicion) {
+		this.fechaExpedicion = fechaExpedicion;
+	}
+
+	public Integer getIdAsesor() {
+		return idAsesor;
+	}
+
+	public void setIdAsesor(Integer idAsesor) {
+		this.idAsesor = idAsesor;
 	}
 
 	public String getProfesion() {

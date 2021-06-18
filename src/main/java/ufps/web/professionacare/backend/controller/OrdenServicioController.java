@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
 import ufps.web.professionacare.backend.container.OrdenEntrada;
 import ufps.web.professionacare.backend.container.OrdenesApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;

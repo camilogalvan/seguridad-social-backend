@@ -57,6 +57,9 @@ public class SsptCliente implements Serializable {
 	private String apellido2;
 
 	@Column
+	private String profesion;
+
+	@Column
 	private String telefono;
 
 	@Column
@@ -120,6 +123,10 @@ public class SsptCliente implements Serializable {
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_plan", referencedColumnName = "id")
 	private SsptPlan plan;
+
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "id_actividad", referencedColumnName = "id_actividad")
+	private SsptActividadEconomica actividad;
 
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "id_asesor", referencedColumnName = "id")
@@ -194,6 +201,14 @@ public class SsptCliente implements Serializable {
 
 	public void setApellido1(String apellido1) {
 		this.apellido1 = apellido1;
+	}
+
+	public SsptActividadEconomica getActividad() {
+		return actividad;
+	}
+
+	public void setActividad(SsptActividadEconomica actividad) {
+		this.actividad = actividad;
 	}
 
 	public String getApellido2() {
@@ -354,6 +369,14 @@ public class SsptCliente implements Serializable {
 
 	public void setPlan(SsptPlan plan) {
 		this.plan = plan;
+	}
+
+	public String getProfesion() {
+		return profesion;
+	}
+
+	public void setProfesion(String profesion) {
+		this.profesion = profesion;
 	}
 
 	public SsptUsuario getAsesor() {

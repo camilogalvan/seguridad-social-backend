@@ -38,7 +38,12 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 	@Override
 	public SsptCliente GetPorCedula(String cedula) {
 
-		return c.findByidentificacion(cedula);
+		return c.findByIdentificacion(cedula);
+	}
+	
+	@Override
+	public SsptCliente buscarPorCorreo(String correo) {
+		return c.findByCorreo(correo);
 	}
 
 }

@@ -9,6 +9,8 @@ public interface SsptUsuarioService {
 
 	public SsptUsuario buscarPorIdentificacion(String identificacion);
 
+	public SsptUsuario buscarPorId(Integer id);
+
 	public SsptUsuario buscarPorUsername(String username);
 	
 	public List<SsptUsuario> buscarTodos();

@@ -22,6 +22,11 @@ public class SsptUsuarioServiceImpl implements SsptUsuarioService {
 	public SsptUsuario buscarPorIdentificacion(String identificacion) {
 		return repository.findFirstByIdentificacion(identificacion);
 	}
+	
+	@Override
+	public SsptUsuario buscarPorId(Integer id) {
+		return repository.findById(id).orElse(null);
+	}
 
 	@Override
 	public SsptUsuario buscarPorUsername(String username) {

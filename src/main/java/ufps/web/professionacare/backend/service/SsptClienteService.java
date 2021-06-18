@@ -12,6 +12,8 @@ public interface SsptClienteService {
 	
 	public SsptCliente guardar(SsptCliente cliente);
 	
+	public SsptCliente buscarPorCorreo(String correo);
+	
 	public SsptCliente GetPorCedula(String cedula);
 
 }
