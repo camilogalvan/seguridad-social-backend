@@ -132,11 +132,11 @@ public class SsptCliente implements Serializable {
 	@JoinColumn(name = "id_asesor", referencedColumnName = "id")
 	private SsptUsuario asesor;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@JsonManagedReference
 	private Set<SsptSoporteCliente> soportes;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@JsonManagedReference
 	@JsonIgnore
 	private Set<SsptOrdenServicio> ordenes;

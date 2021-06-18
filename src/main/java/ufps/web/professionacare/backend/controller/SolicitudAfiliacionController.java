@@ -249,17 +249,18 @@ public class SolicitudAfiliacionController {
 				solicitud.setSsptUsuario(asesor);
 			} else {
 				if (cliente.getAsesor() != null) {
-					solicitud.setSsptUsuario(cliente.getAsesor());
+					asesor = cliente.getAsesor();
+					solicitud.setSsptUsuario(asesor);
 				}
 			}
 			if (solicitud.getSsptUsuario() == null) {
-				solicitud.setSsptUsuario(usuarioService.asesorDisponible());
+				asesor = usuarioService.asesorDisponible();
 			}
+			solicitud.setSsptUsuario(asesor);
 			if (cliente.getAsesor() == null) {
-				cliente.setAsesor(solicitud.getSsptUsuario());
+				cliente.setAsesor(asesor);
 				cliente = clienteService.guardar(cliente);
 			}
-
 			// Registrar soportes
 			Set<SsptSoporteAfiliacion> soportes = new HashSet<>();
 			SsptFile mppFile = fileService.save(entrada.getFile());
@@ -302,9 +303,9 @@ public class SolicitudAfiliacionController {
 					format.format(solicitud.getFechaRegistro()), empresa.getNombre(), empresa.getDireccion(),
 					empresa.getTelefono(), empresa.getEmail());
 
-			cuerpoMensajeAsesor = String.format(cuerpoMensajeAsesor, solicitud.getSsptCliente().getNombreCompleto(),
-					solicitud.getSsptCliente().getIdentificacion(), format.format(solicitud.getFechaRegistro()),
-					solicitud.getObservaciones());
+			cuerpoMensajeAsesor = String.format(cuerpoMensajeAsesor, solicitud.getId().toString(),
+					solicitud.getSsptCliente().getNombreCompleto(), solicitud.getSsptCliente().getIdentificacion(),
+					format.format(solicitud.getFechaRegistro()), solicitud.getObservaciones());
 
 			emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensaje,
 					cliente.getCorreo());
