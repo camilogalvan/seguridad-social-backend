@@ -16,6 +16,6 @@ public interface SsptOrdenServicioService {
 
 	public SsptOrdenServicio save(SsptOrdenServicio entrada);
 
-	public List<SsptOrdenServicio> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal);
+	public List<SsptOrdenServicio> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal, Integer idAsesor);
 
 }

@@ -44,16 +44,24 @@ public class SsptOrdenServicioServiceImpl implements SsptOrdenServicioService {
 	}
 	
 	@Override
-	public List<SsptOrdenServicio> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal) {
+	public List<SsptOrdenServicio> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal, Integer idAsesor) {
 		Integer tipo = -1;
 		try {
 			tipo = EstadoOrden.valueOf(estado).ordinal();
 		} catch (Exception e) {
 		}
 		if (tipo != -1) {
-			return s.findByFechaBetweenAndEstadoOnly(fechaInicio, fechaFinal, tipo);					
+			if (idAsesor != null) {
+				return s.findByFechaBetweenAndEstadoAsesor(fechaInicio, fechaFinal, tipo, idAsesor);
+			} else {
+				return s.findByFechaBetweenAndEstadoOnly(fechaInicio, fechaFinal, tipo);
+			}
 		} else {
-			return s.findByFechaBetweenOnly(fechaInicio, fechaFinal);
+			if (idAsesor != null) {
+				return s.findByFechaBetweenAsesor(fechaInicio, fechaFinal, idAsesor);
+			} else {
+				return s.findByFechaBetweenOnly(fechaInicio, fechaFinal);
+			}
 		}
 	}
 

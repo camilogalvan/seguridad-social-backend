@@ -32,6 +32,14 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 	}
 
 	@Override
+	public List<SsptCliente> listarTodos(Integer idAsesor) {
+		if (idAsesor != null) {
+			return c.findByAsesor(idAsesor);
+		}
+		return (List<SsptCliente>) c.findAll();
+	}
+
+	@Override
 	public SsptCliente guardar(SsptCliente cliente) {
 
 		return c.save(cliente);
@@ -42,23 +50,31 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 
 		return c.findByIdentificacion(cedula);
 	}
-	
+
 	@Override
 	public SsptCliente buscarPorCorreo(String correo) {
 		return c.findByCorreo(correo);
 	}
-	
+
 	@Override
-	public List<SsptCliente> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal) {
+	public List<SsptCliente> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal, Integer idAsesor) {
 		Integer tipo = -1;
 		try {
 			tipo = EstadoCliente.valueOf(estado).ordinal();
 		} catch (Exception e) {
 		}
 		if (tipo != -1) {
-			return c.findByFechaBetweenAndEstadoOnly(fechaInicio, fechaFinal, tipo);					
+			if (idAsesor != null) {
+				return c.findByFechaBetweenAndEstadoAsesor(fechaInicio, fechaFinal, tipo, idAsesor);
+			} else {
+				return c.findByFechaBetweenAndEstadoOnly(fechaInicio, fechaFinal, tipo);				
+			}
 		} else {
-			return c.findByFechaBetweenOnly(fechaInicio, fechaFinal);
+			if (idAsesor != null) {
+				return c.findByFechaBetweenAsesor(fechaInicio, fechaFinal, idAsesor);
+			}else {
+				return c.findByFechaBetweenOnly(fechaInicio, fechaFinal);
+			}
 		}
 	}
 

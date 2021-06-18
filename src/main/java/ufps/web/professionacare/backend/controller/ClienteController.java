@@ -1,6 +1,8 @@
 package ufps.web.professionacare.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,10 @@ import ufps.web.professionacare.backend.container.ClientesApi;
 import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
+import ufps.web.professionacare.backend.model.SsptUsuario;
 import ufps.web.professionacare.backend.service.SsptClienteService;
 import ufps.web.professionacare.backend.service.SsptOrdenServicioService;
+import ufps.web.professionacare.backend.service.SsptUsuarioService;
 
 @RestController
 @RequestMapping("/api/clientes/")
@@ -24,10 +28,21 @@ public class ClienteController {
 	@Autowired
 	private SsptOrdenServicioService ordenesService;
 
+	@Autowired
+	private SsptUsuarioService usuarioService;
+
+
 	@GetMapping("todos")
 	public ClientesApi getAll() {
 		ClientesApi api = new ClientesApi();
-		api.setClientes(service.Get());
+	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		SsptUsuario usuarioRta = usuarioService.buscarPorUsername(authentication.getName());
+		Integer idAsesor = null;
+		if (usuarioRta.getRol().getRol().equals("ROLE_USER")) {
+			idAsesor = usuarioRta.getId();
+		}
+		api.setClientes(service.listarTodos(idAsesor));
 		return api;
 	}
 

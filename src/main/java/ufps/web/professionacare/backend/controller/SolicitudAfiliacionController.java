@@ -106,18 +106,21 @@ public class SolicitudAfiliacionController {
 	@PostMapping("busqueda")
 	public ResponseEntity<SolicitudesApi> getByBusqueda(@RequestBody SolicitudesBusquedaEntradaApi entrada) {
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		SsptUsuario usuarioRta = usuarioService.buscarPorUsername(authentication.getName());
+		Integer idAsesor = null;
 		SolicitudesApi api = new SolicitudesApi();
-
+		if (usuarioRta.getRol().getRol().equals("ROLE_USER")) {
+			idAsesor = usuarioRta.getId();
+		}
 		Date fecha = null;
 		try {
 			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(entrada.getFecha());
 		} catch (Exception e) {
 		}
-
 		try {
-
 			api.setSolicitudes(service.busqueda(entrada.getBusqueda().toUpperCase(), entrada.getEstado(), fecha,
-					entrada.getPorFecha()));
+					entrada.getPorFecha(), idAsesor));
 		} catch (Exception e) {
 			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
 		}
@@ -132,7 +135,6 @@ public class SolicitudAfiliacionController {
 
 		try {
 			api.setSolicitud(service.GetPorId(id));
-			;
 		} catch (Exception e) {
 			throw new ValidationException(e.getMessage(), e, HttpStatus.BAD_REQUEST);
 		}
@@ -243,7 +245,11 @@ public class SolicitudAfiliacionController {
 			if (asesor != null) {
 				solicitud.setSsptUsuario(asesor);
 			} else {
-				// Asignación de asesor
+				if (cliente.getAsesor() != null) {
+					solicitud.setSsptUsuario(cliente.getAsesor());
+				} else {
+					
+				}
 			}
 
 			// Registrar soportes
