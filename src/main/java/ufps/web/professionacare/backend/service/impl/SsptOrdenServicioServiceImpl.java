@@ -1,11 +1,13 @@
 package ufps.web.professionacare.backend.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ufps.web.professionacare.backend.enums.EstadoOrden;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.model.SsptOrdenServicio;
 import ufps.web.professionacare.backend.repository.SsptOrdenServicioRepository;
@@ -39,6 +41,20 @@ public class SsptOrdenServicioServiceImpl implements SsptOrdenServicioService {
 	public SsptOrdenServicio save(SsptOrdenServicio entrada) {
 
 		return s.save(entrada);
+	}
+	
+	@Override
+	public List<SsptOrdenServicio> filtradoReporte(String estado, Date fechaInicio, Date fechaFinal) {
+		Integer tipo = -1;
+		try {
+			tipo = EstadoOrden.valueOf(estado).ordinal();
+		} catch (Exception e) {
+		}
+		if (tipo != -1) {
+			return s.findByFechaBetweenAndEstadoOnly(fechaInicio, fechaFinal, tipo);					
+		} else {
+			return s.findByFechaBetweenOnly(fechaInicio, fechaFinal);
+		}
 	}
 
 }

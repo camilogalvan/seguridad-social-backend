@@ -92,9 +92,9 @@ public class SolicitudesViewXlsx extends AbstractXlsxView {
 				row.createCell(j++).setCellValue(cliente.getMunicipio() != null ? cliente.getMunicipio().getCodigoDptoMpio():"");
 				row.createCell(j++).setCellValue(cliente.getFechaExpedicion() != null ? formatDate.format(cliente.getFechaExpedicion()): "");
 				row.createCell(j++).setCellValue(cliente.getLugarExpedicion() != null ? cliente.getLugarExpedicion():"");
-				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getCodigoActividad():null);
+				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getCodigoActividad().toString():"");
 				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNombreActividad():"");
-				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNivelRiesgo():null);
+				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNivelRiesgo().toString():"");
 				row.createCell(j++).setCellValue(item.getEstadoSolicitud().getNombre());
 				row.createCell(j++).setCellValue(item.getSsptPlan() != null ? item.getSsptPlan().getTitulo():"");
 				row.createCell(j++).setCellValue(item.getSsptPlan() != null ? item.getSsptPlan().getServicios():"");
