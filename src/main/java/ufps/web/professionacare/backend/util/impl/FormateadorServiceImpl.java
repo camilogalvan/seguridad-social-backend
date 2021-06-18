@@ -35,9 +35,8 @@ public class FormateadorServiceImpl implements FormateadorService {
 	@Override
 	public Boolean verificarDato(String dato) {
 		try {
-			return dato.strip().length() > 0;
+			return dato.length() > 0;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return false;
 	}
@@ -51,7 +50,6 @@ public class FormateadorServiceImpl implements FormateadorService {
 			Matcher mather = pattern.matcher(dato);
 			return mather.find();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return false;
 	}
