@@ -42,7 +42,6 @@ public class UsuarioController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Secured({ "ROLE_ADMIN", "ROLE_PROV" })
 	@GetMapping("all")
 	public UsuariosApi getListUsuarios() {
 

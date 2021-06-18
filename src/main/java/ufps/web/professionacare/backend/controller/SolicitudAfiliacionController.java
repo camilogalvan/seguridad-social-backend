@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.SolicitudApi;
@@ -151,61 +152,62 @@ public class SolicitudAfiliacionController {
 			SsptTipoCliente tipoCliente = tipoClienteService.buscarPorId(entrada.getIdTipoCliente());
 			SsptMunicipio municipio = municipioser.getPorId(entrada.getIdMunicipio());
 			SsptActividadEconomica actividad = actividadService.buscarPorId(entrada.getIdActividad());
-			SsptUsuario asesor = null; 
+			SsptUsuario asesor = null;
 
 			if (entrada.getIdAsesor() != null) {
 				asesor = usuarioService.buscarPorId(entrada.getIdAsesor());
-			}			
+			}
 
 			SsptPlan tipoPlan = planService.buscarPorId(entrada.getIdTipoPlan());
-			
+
 			if (tipoPlan == null) {
-				throw new Exception("Debe seleccionar el plan");					
+				throw new Exception("Debe seleccionar el plan");
 			}
 			if (entrada.getFile() == null) {
-				throw new Exception("Debe ingresar un soporte");							
+				throw new Exception("Debe ingresar un soporte");
 			}
 
 			if (cliente == null) {
-				
+
 				if (!formatService.verificarEmail(entrada.getCorreo())) {
-					throw new Exception("Debe ingresar el correo electronico valido.");						
+					throw new Exception("Debe ingresar el correo electronico valido.");
 				}
-				
+
 				cliente = clienteService.buscarPorCorreo(entrada.getCorreo());
 				if (cliente != null) {
 					throw new Exception("El correo ya se encuentra en uso, por favor ingrese otro.");
-				}					
+				}
 				if (actividad == null) {
-					throw new Exception("Debe seleccionar la actividad economica.");					
-				}				
+					throw new Exception("Debe seleccionar la actividad economica.");
+				}
 				if (tipoId == null) {
-					throw new Exception("Debe seleccionar el tipo de identificación.");					
-				}				
+					throw new Exception("Debe seleccionar el tipo de identificación.");
+				}
 				if (municipio == null) {
-					throw new Exception("Debe seleccionar el municipio de residencia.");					
-				}								
+					throw new Exception("Debe seleccionar el municipio de residencia.");
+				}
 				if (!formatService.verificarDato(entrada.getNombre1())) {
-					throw new Exception("Debe ingresar el primer nombre.");						
-				}				
+					throw new Exception("Debe ingresar el primer nombre.");
+				}
 				if (!formatService.verificarDato(entrada.getApellido1())) {
-					throw new Exception("Debe ingresar el primer apellido.");						
+					throw new Exception("Debe ingresar el primer apellido.");
 				}
-				if (!formatService.verificarDato(entrada.getIdentificacion()) && entrada.getIdentificacion().length()>=7) {
-					throw new Exception("El documento de identidad debe ser mayor o igual a 7 digitos.");						
+				if (!formatService.verificarDato(entrada.getIdentificacion())
+						&& entrada.getIdentificacion().length() >= 7) {
+					throw new Exception("El documento de identidad debe ser mayor o igual a 7 digitos.");
 				}
-				
+
 				Date fechaNacimiento = formatService.getFecha(entrada.getFechaNacimiento());
 
 				if (fechaNacimiento == null) {
-					throw new Exception("La fecha de Nacimiento es invalida: "+entrada.getFechaNacimiento()+".");
+					throw new Exception("La fecha de Nacimiento es invalida: " + entrada.getFechaNacimiento() + ".");
 				}
 				Date fechaExpedicion = formatService.getFecha(entrada.getFechaExpedicion());
 
 				if (fechaExpedicion == null) {
-					throw new Exception("La fecha de Expedición es invalida: "+entrada.getFechaExpedicion()+".");
+					throw new Exception("La fecha de Expedición es invalida: " + entrada.getFechaExpedicion() + ".");
 				}
-				
+
 				cliente = new SsptCliente();
 
 				cliente.setNombre1(entrada.getNombre1());
@@ -239,7 +241,7 @@ public class SolicitudAfiliacionController {
 			solicitud.setSsptCliente(cliente);
 			solicitud.setSsptPlan(tipoPlan);
 			if (asesor != null) {
-				solicitud.setSsptUsuario(asesor);				
+				solicitud.setSsptUsuario(asesor);
 			} else {
 				// Asignación de asesor
 			}
@@ -279,7 +281,7 @@ public class SolicitudAfiliacionController {
 					solicitud.getSsptCliente().getIdentificacion(), solicitud.getObservaciones(),
 					format.format(solicitud.getFechaRegistro()), empresa.getNombre(), empresa.getDireccion(),
 					empresa.getTelefono(), empresa.getEmail());
-			
+
 			emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensaje,
 					cliente.getCorreo());
 
@@ -292,6 +294,19 @@ public class SolicitudAfiliacionController {
 		}
 
 		return new ResponseEntity<>(solicitud, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "cambiar-asesor/{id}")
+	public SsptSolicitudAfiliacion responder(@PathVariable int id, @RequestParam Integer idAsesor) {
+
+		SsptSolicitudAfiliacion soli = service.GetPorId(id);
+		SsptUsuario usuarioRta = usuarioService.buscarPorId(idAsesor);
+
+		soli.setSsptUsuario(usuarioRta);
+		
+		soli = service.guardar(soli);
+
+		return soli;
 	}
 
 	@PostMapping("responder/{id}")
