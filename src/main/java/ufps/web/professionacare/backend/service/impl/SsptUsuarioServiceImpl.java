@@ -52,6 +52,11 @@ public class SsptUsuarioServiceImpl implements SsptUsuarioService {
 	public SsptUsuario buscarPorEmail(String email) {
 		return repository.findFirstByEmail(email);
 	}
+	
+	@Override
+	public SsptUsuario asesorDisponible() {
+		return repository.buscarDisponible();
+	}
 
 	@Override
 	public boolean existePorUsernameEidentificacion(String username, String identificacion) {

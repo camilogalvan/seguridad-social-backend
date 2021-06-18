@@ -158,6 +158,9 @@ public class SolicitudAfiliacionController {
 
 			if (entrada.getIdAsesor() != null) {
 				asesor = usuarioService.buscarPorId(entrada.getIdAsesor());
+				if (asesor == null) {
+					throw new Exception("El código del asesor es invalido");
+				}
 			}
 
 			SsptPlan tipoPlan = planService.buscarPorId(entrada.getIdTipoPlan());
@@ -247,9 +250,14 @@ public class SolicitudAfiliacionController {
 			} else {
 				if (cliente.getAsesor() != null) {
 					solicitud.setSsptUsuario(cliente.getAsesor());
-				} else {
-					
 				}
+			}
+			if (solicitud.getSsptUsuario() == null) {
+				solicitud.setSsptUsuario(usuarioService.asesorDisponible());
+			}
+			if (cliente.getAsesor() == null) {
+				cliente.setAsesor(solicitud.getSsptUsuario());
+				cliente = clienteService.guardar(cliente);
 			}
 
 			// Registrar soportes
@@ -283,13 +291,27 @@ public class SolicitudAfiliacionController {
 					+ "<p><i>***!!! FAVOR NO RESPONDER A ESTE CORREO, ES SOLO DE GESTIÓN AUTOMÁTICA Y NO SE MONITOREA ¡¡¡***.</i></p>\r\n"
 					+ "<hr>";
 
+			String cuerpoMensajeAsesor = "<h1>Registro de Solicitud de Afiliación</h1>"
+					+ "<p>Se ha registrado la solicitud #%s del cliente %s con identificación: %s</p>"
+					+ "<p>Fecha registro: %s</p>" + "<p>Observaciones del Cliente: %s</p>" + "<hr>"
+					+ "<p><i>***!!! FAVOR NO RESPONDER A ESTE CORREO, ES SOLO DE GESTIÓN AUTOMÁTICA Y NO SE MONITOREA ¡¡¡***.</i></p>"
+					+ "<hr>";
+
 			cuerpoMensaje = String.format(cuerpoMensaje, solicitud.getSsptCliente().getNombreCompleto(),
 					solicitud.getSsptCliente().getIdentificacion(), solicitud.getObservaciones(),
 					format.format(solicitud.getFechaRegistro()), empresa.getNombre(), empresa.getDireccion(),
 					empresa.getTelefono(), empresa.getEmail());
 
+			cuerpoMensajeAsesor = String.format(cuerpoMensajeAsesor, solicitud.getSsptCliente().getNombreCompleto(),
+					solicitud.getSsptCliente().getIdentificacion(), format.format(solicitud.getFechaRegistro()),
+					solicitud.getObservaciones());
+
 			emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensaje,
 					cliente.getCorreo());
+			if (solicitud.getSsptUsuario() != null) {
+				emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensaje,
+						solicitud.getSsptUsuario().getEmail());
+			}
 
 		} catch (ValidationException e) {
 			e.printStackTrace();
@@ -309,7 +331,7 @@ public class SolicitudAfiliacionController {
 		SsptUsuario usuarioRta = usuarioService.buscarPorId(idAsesor);
 
 		soli.setSsptUsuario(usuarioRta);
-		
+
 		soli = service.guardar(soli);
 
 		return soli;

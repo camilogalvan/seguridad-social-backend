@@ -20,6 +20,8 @@ public interface SsptUsuarioService {
 	public SsptUsuario guardar(SsptUsuario entity);
 		
 	public SsptUsuario buscarPorEmail(String email);
+	
+	public SsptUsuario asesorDisponible();
 		
 	public boolean existePorUsernameEidentificacion(String username, String identificacion);
 
