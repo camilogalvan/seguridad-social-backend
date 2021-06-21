@@ -310,7 +310,7 @@ public class SolicitudAfiliacionController {
 			emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensaje,
 					cliente.getCorreo());
 			if (solicitud.getSsptUsuario() != null) {
-				emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensaje,
+				emailService.sendMessageWithAttachment("PROFESSIONAL CARE - REGISTRO DE SOLICITUD", cuerpoMensajeAsesor,
 						solicitud.getSsptUsuario().getEmail());
 			}
 

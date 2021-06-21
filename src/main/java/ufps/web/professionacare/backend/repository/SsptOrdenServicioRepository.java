@@ -20,7 +20,7 @@ public interface SsptOrdenServicioRepository extends CrudRepository<SsptOrdenSer
 	public List<SsptOrdenServicio> findByFechaBetweenOnly(Date fechaInicio, Date fechaFinal);
 	
 	@Query(value = "SELECT sol.* FROM sspt_orden_servicio sol "
-			+ "inner sspt_cliente cli join sol.id_cliente = cli.id "
+			+ "inner join sspt_cliente cli join sol.id_cliente = cli.id "
 			+ "where sol.fecha_orden >= :fechaInicio and sol.fecha_orden <= :fechaFinal "
 			+ "and cli.id_asesor = :idAsesor "
 			+ "ORDER BY case when sol.estado_orden = 0 then 0 else 1 end, "
@@ -35,7 +35,7 @@ public interface SsptOrdenServicioRepository extends CrudRepository<SsptOrdenSer
 	public List<SsptOrdenServicio> findByFechaBetweenAndEstadoOnly(Date fechaInicio, Date fechaFinal, Integer estado);
 	
 	@Query(value = "SELECT sol.* FROM sspt_orden_servicio sol "
-			+ "inner sspt_cliente cli join sol.id_cliente = cli.id "
+			+ "inner join sspt_cliente cli join sol.id_cliente = cli.id "
 			+ "where sol.fecha_orden >= :fechaInicio and sol.fecha_orden <= :fechaFinal "
 			+ "and sol.estado_orden = :estado and cli.id_asesor = :idAsesor "
 			+ "ORDER BY case when sol.estado_orden = 0 then 0 else 1 end, "

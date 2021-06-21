@@ -26,7 +26,8 @@ public class SolicitudesViewXlsx extends AbstractXlsxView {
 
 	private String[] celdasHeader = new String[] { "IDRadicado", "TipoIdCliente", "NumIdCliente", "Nombre1", "Nombre2",
 			"Apellido1", "Apellido2", "Telefono", "Dirección", "Correo", "FechaNacimiento", "TipoCliente",
-			"Departamento", "Municipio", "CodigoMunicipio", "FechaExpedición", "LugarExpedición", "CodigoActividadEconomica", "ActividadEconomica", "NivelRiesgo", "IBC", "EstadoSolicitud", "Plan", "Servicios", "Observaciones Cliente",
+			"Departamento", "Municipio", "CodigoMunicipio", "FechaExpedición", "LugarExpedición", "CodigoActividadEconomica", 
+			"ActividadEconomica", "NivelRiesgo", "IBC", "EstadoSolicitud", "Plan", "Servicios", "Observaciones Cliente",
 			"Respuesta Solicitud", "Fecha de Solicitud", "Fecha Respuesta", "Funcionario de Respuesta" };
 
 	@SuppressWarnings("unchecked")
@@ -95,6 +96,7 @@ public class SolicitudesViewXlsx extends AbstractXlsxView {
 				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getCodigoActividad().toString():"");
 				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNombreActividad():"");
 				row.createCell(j++).setCellValue(cliente.getActividad() != null ? cliente.getActividad().getNivelRiesgo().toString():"");
+				row.createCell(j++).setCellValue(cliente.getIbc() != null ? cliente.getIbc().toString():"");
 				row.createCell(j++).setCellValue(item.getEstadoSolicitud().getNombre());
 				row.createCell(j++).setCellValue(item.getSsptPlan() != null ? item.getSsptPlan().getTitulo():"");
 				row.createCell(j++).setCellValue(item.getSsptPlan() != null ? item.getSsptPlan().getServicios():"");
