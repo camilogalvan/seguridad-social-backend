@@ -38,8 +38,6 @@ public class OrdenServicioController {
 		SsptCliente cliente = clienteService.GetPorId(entrada.getIdCliente());
 		if (cliente != null) {
 			orden.setCliente(cliente);
-			;
-			;
 			orden.setPrecio(cliente.getPlan().getPrecio());
 			orden.prePersist();
 			return service.save(orden);

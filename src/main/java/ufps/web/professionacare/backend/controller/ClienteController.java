@@ -55,7 +55,7 @@ public class ClienteController {
 	public ConsultaOrdenApi GetPorCedula(@PathVariable String cedula) {
 		ConsultaOrdenApi api = new ConsultaOrdenApi();
 		api.setCliente(service.GetPorCedula(cedula));
-		api.setOrden(ordenesService.getByCliente(api.getCliente()));
+		//api.setOrden(ordenesService.getByCliente(api.getCliente()));
 		return api;
 	}
 

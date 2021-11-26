@@ -14,6 +14,7 @@ import ufps.web.professionacare.backend.service.SsptUsuarioService;
 import ufps.web.professionacare.backend.util.FormateadorService;
 import ufps.web.professionacare.backend.util.ValidationException;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -143,7 +144,7 @@ public class SolicitudAfiliacionController {
 	}
 
 	@PostMapping(value = "save", consumes = { "multipart/form-data" })
-	public ResponseEntity<SsptSolicitudAfiliacion> guardar(@ModelAttribute SolicitudEntradaApi entrada) {
+	public ResponseEntity<SsptSolicitudAfiliacion> afiliar(@ModelAttribute SolicitudEntradaApi entrada) {
 		SsptSolicitudAfiliacion solicitud = new SsptSolicitudAfiliacion();
 		try {
 
@@ -239,9 +240,6 @@ public class SolicitudAfiliacionController {
 				clienteService.guardar(cliente);
 
 			}
-
-			// Registrar solicitud
-
 			solicitud.setObservaciones(entrada.getObservaciones());
 			solicitud.setSsptCliente(cliente);
 			solicitud.setSsptPlan(tipoPlan);
@@ -343,29 +341,14 @@ public class SolicitudAfiliacionController {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		SsptUsuario usuarioRta = usuarioService.buscarPorUsername(authentication.getName());
-
 		SsptSolicitudAfiliacion soli = service.GetPorId(id);
-
 		soli.setEstadoSolicitud(EstadoSolicitudAfiliacion.valueOf(entrada.getRespuesta()));
 		soli.setRespuesta(entrada.getObservacion());
 		soli.setSsptUsuario(usuarioRta);
 		soli.setFechaRespuesta(new Date());
-
 		SsptEmpresa empresa = empresaService.getEmpresaActual();
-
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		String cuerpoMensaje = "<h1>Respuesta de Solicitud de Afiliación</h1>\r\n"
-				+ "<p>Cordial Saludo <b>%s</b></p>\r\n" + "<br>\r\n"
-				+ "<p>Le informamos que se ha dado respuesta a su solicitud con número de identificación <b>%s</b>. La respuesta a su solicitud es: <b><i>%s</i></b>, a continuación encontrará el detalle de su respuesta.</p>\r\n"
-				+ "<br>\r\n" + "<p><span><b>Observaciones: </b></span>%s</p>\r\n"
-				+ "<p><span><b>Fecha de respuesta: </b></span>%s</p>\r\n" + "<br>\r\n" + "<hr>\r\n" + "<footer>\r\n"
-				+ "    <p><span><b>%s</b></span></p>\r\n" + "    <p>Dirección: <span><b>%s</b></span></p>\r\n"
-				+ "    <p>Teléfonos: <span><b>%s</b></span></p>\r\n" + "    <p>Correo: <span><b>%s</b></span></p>\r\n"
-				+ "</footer>\r\n" + "<br>\r\n" + "<hr>\r\n"
-				+ "<p><i>***!!! FAVOR NO RESPONDER A ESTE CORREO, ES SOLO DE GESTIÓN AUTOMÁTICA Y NO SE MONITOREA ¡¡¡***.</i></p>\r\n"
-				+ "<hr>";
-
+		String cuerpoMensaje = "<h1>Respuesta de Solicitud de Afiliación</h1>\r\n";
 		cuerpoMensaje = String.format(cuerpoMensaje, soli.getSsptCliente().getNombreCompleto(),
 				soli.getSsptCliente().getIdentificacion(), soli.getEstadoSolicitud().getNombre(), soli.getRespuesta(),
 				format.format(soli.getFechaRespuesta()), empresa.getNombre(), empresa.getDireccion(),
@@ -373,7 +356,6 @@ public class SolicitudAfiliacionController {
 
 		emailService.sendMessageWithAttachment("PROFESSIONAL CARE - RESPUESTA DE SOLICITUD", cuerpoMensaje,
 				soli.getSsptCliente().getCorreo());
-
 		try {
 			soli = service.guardar(soli);
 			SsptCliente cliente = soli.getSsptCliente();
@@ -388,6 +370,7 @@ public class SolicitudAfiliacionController {
 			}
 			clienteService.guardar(cliente);
 		} catch (Exception e) {
+			System.out.println(e);
 		}
 
 		return soli;
