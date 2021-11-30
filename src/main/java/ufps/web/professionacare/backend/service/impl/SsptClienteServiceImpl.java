@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ufps.web.professionacare.backend.container.ClienteEntrada;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
 import ufps.web.professionacare.backend.model.SsptCliente;
 import ufps.web.professionacare.backend.repository.SsptClienteRepository;
@@ -77,5 +78,6 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 			}
 		}
 	}
+
 
 }

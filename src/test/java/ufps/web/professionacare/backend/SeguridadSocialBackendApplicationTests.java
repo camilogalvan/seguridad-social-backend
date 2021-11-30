@@ -16,9 +16,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ufps.web.professionacare.backend.model.SsptActividadEconomica;
 import ufps.web.professionacare.backend.model.SsptCliente;
@@ -34,13 +39,16 @@ import ufps.web.professionacare.backend.service.SsptTipoIdentificacionService;
 import ufps.web.professionacare.backend.service.SsptUsuarioService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@SpringBootTest()
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 class SeguridadSocialBackendApplicationTests {
 
 	@Autowired
     private MockMvc mvc;
+	
+	@Autowired
+    private ObjectMapper objectMapper;
 	
 	@Autowired
 	private SsptClienteService clienteService;
@@ -62,29 +70,32 @@ class SeguridadSocialBackendApplicationTests {
 	
 	@Test
 	public void guardarClienteTest() throws Exception {
-//		SsptCliente cliente = new SsptCliente();
-//		cliente.setNombre1("Judith");
-//		cliente.setNombre2("Pilar");
-//		cliente.setApellido1("Rodriguez");
-//		cliente.setApellido2("Tenjo");
-//		cliente.setIdentificacion("123456789");
-//		cliente.setTipoCliente(tipoClienteService.buscarPorId(1));
-//		cliente.setTipoIdentificacion(tipoIdentificacionService.buscarPorTipo("CC"));
-//		cliente.setMunicipio(municipioService.getPorId(1));
-//		cliente.setAsesor(usuarioService.asesorDisponible());
-//		cliente.setActividad(actividadService.buscarPorId(1));
-//
-//		//clienteService.guardar(cliente);
-//
-//		mvc.perform(get("/api/clientes/porCedula/"+cliente.getIdentificacion())
-//				.contentType(MediaType.APPLICATION_JSON))
-//	      		.andExpect(status().isOk())
-//	      		.andExpect(content()
-//	      		.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//	      		.andExpect(jsonPath("$.cliente.identificacion", is(cliente.getIdentificacion())));
-		assertEquals(true,true);
+		SsptCliente cliente = new SsptCliente();
+		
+		cliente.setNombre1("Judith");
+		cliente.setNombre2("Pilar");
+		cliente.setApellido1("Rodriguez");
+		cliente.setApellido2("Tenjo");
+		cliente.setIdentificacion("123456789");
+		cliente.setTipoCliente(tipoClienteService.buscarPorId(1));
+		cliente.setTipoIdentificacion(tipoIdentificacionService.buscarPorTipo("CC"));
+		cliente.setMunicipio(municipioService.getPorId(1));
+		cliente.setAsesor(usuarioService.asesorDisponible());
+		cliente.setActividad(actividadService.buscarPorId(1));
+		clienteService.guardar(cliente);
+//        mvc.perform(MockMvcRequestBuilders.post("/api/clientes/crear")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(cliente)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").exists())
+//                .andReturn();
+		
+		mvc.perform(get("/api/clientes/porCedula/"+cliente.getIdentificacion())
+				.contentType(MediaType.APPLICATION_JSON))
+	      		.andExpect(status().isOk())
+	      		.andExpect(content()
+	      		.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	      		.andExpect(jsonPath("$.cliente.identificacion", is(cliente.getIdentificacion())));
 	}
-
-
 }
 

@@ -3,6 +3,7 @@ package ufps.web.professionacare.backend.service;
 import java.util.Date;
 import java.util.List;
 
+import ufps.web.professionacare.backend.container.ClienteEntrada;
 import ufps.web.professionacare.backend.model.SsptCliente;
 
 public interface SsptClienteService {
