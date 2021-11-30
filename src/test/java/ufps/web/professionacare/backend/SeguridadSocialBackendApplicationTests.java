@@ -82,20 +82,19 @@ class SeguridadSocialBackendApplicationTests {
 		cliente.setMunicipio(municipioService.getPorId(1));
 		cliente.setAsesor(usuarioService.asesorDisponible());
 		cliente.setActividad(actividadService.buscarPorId(1));
-		clienteService.guardar(cliente);
-//        mvc.perform(MockMvcRequestBuilders.post("/api/clientes/crear")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(cliente)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").exists())
-//                .andReturn();
+        mvc.perform(MockMvcRequestBuilders.post("/api/clientes/crear")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(cliente)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andReturn();
 		
-		mvc.perform(get("/api/clientes/porCedula/"+cliente.getIdentificacion())
-				.contentType(MediaType.APPLICATION_JSON))
-	      		.andExpect(status().isOk())
-	      		.andExpect(content()
-	      		.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	      		.andExpect(jsonPath("$.cliente.identificacion", is(cliente.getIdentificacion())));
+//		mvc.perform(get("/api/clientes/porCedula/"+cliente.getIdentificacion())
+//				.contentType(MediaType.APPLICATION_JSON))
+//	      		.andExpect(status().isOk())
+//	      		.andExpect(content()
+//	      		.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//	      		.andExpect(jsonPath("$.cliente.identificacion", is(cliente.getIdentificacion())));
 	}
 }
 
