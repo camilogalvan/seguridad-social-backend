@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import ufps.web.professionacare.backend.container.ClienteEntrada;
 import ufps.web.professionacare.backend.container.ClientesApi;
 import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
@@ -41,7 +40,6 @@ public class ClienteController {
 	@GetMapping("todos")
 	public ClientesApi getAll() {
 		ClientesApi api = new ClientesApi();
-	
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		SsptUsuario usuarioRta = usuarioService.buscarPorUsername(authentication.getName());
 		Integer idAsesor = null;
@@ -54,25 +52,25 @@ public class ClienteController {
 
 	@PostMapping("crear")
 	public ResponseEntity<SsptCliente> crearCliente(@RequestBody SsptCliente cliente) {
-		return new ResponseEntity<SsptCliente>(service.guardar(cliente),HttpStatus.OK);
+		return new ResponseEntity<>(service.guardar(cliente),HttpStatus.OK);
 	}
 	
 	@GetMapping("porId/{id}")
-	public SsptCliente GetPorId(@PathVariable int id) {
-		return service.GetPorId(id);
+	public SsptCliente getPorId(@PathVariable int id) {
+		return service.getPorId(id);
 	}
 
 	@GetMapping("porCedula/{cedula}")
-	public ConsultaOrdenApi GetPorCedula(@PathVariable String cedula) {
+	public ConsultaOrdenApi getPorCedula(@PathVariable String cedula) {
 		ConsultaOrdenApi api = new ConsultaOrdenApi();
-		api.setCliente(service.GetPorCedula(cedula));
+		api.setCliente(service.getPorCedula(cedula));
 		//api.setOrden(ordenesService.getByCliente(api.getCliente()));
 		return api;
 	}
 
 	@PostMapping("cambiarEstado/{id}/{estado}")
-	public SsptCliente CambiarEstado(@PathVariable int id, @PathVariable String estado) {
-		SsptCliente cli = this.GetPorId(id);
+	public SsptCliente cambiarEstado(@PathVariable int id, @PathVariable String estado) {
+		SsptCliente cli = this.getPorId(id);
 		cli.setEstadoCliente(EstadoCliente.valueOf(estado));
 		return service.guardar(cli);
 	}

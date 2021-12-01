@@ -44,57 +44,62 @@ import ufps.web.professionacare.backend.service.SsptUsuarioService;
 @AutoConfigureMockMvc
 class SeguridadSocialBackendApplicationTests {
 
-	@Autowired
-    private MockMvc mvc;
-	
-	@Autowired
-    private ObjectMapper objectMapper;
-	
-	@Autowired
-	private SsptClienteService clienteService;
-	
-	@Autowired
-	private SsptTipoClienteService tipoClienteService;
-	
-	@Autowired
-	private SsptTipoIdentificacionService tipoIdentificacionService;
-	
-	@Autowired
-	private SsptMunicipioService municipioService;
-	
-	@Autowired
-	private SsptUsuarioService usuarioService;
-	
-	@Autowired
-	private SsptActividadEconomicaService actividadService;
-	
 	@Test
-	public void guardarClienteTest() throws Exception {
-		SsptCliente cliente = new SsptCliente();
-		
-		cliente.setNombre1("Judith");
-		cliente.setNombre2("Pilar");
-		cliente.setApellido1("Rodriguez");
-		cliente.setApellido2("Tenjo");
-		cliente.setIdentificacion("123456789");
-		cliente.setTipoCliente(tipoClienteService.buscarPorId(1));
-		cliente.setTipoIdentificacion(tipoIdentificacionService.buscarPorTipo("CC"));
-		cliente.setMunicipio(municipioService.getPorId(1));
-		cliente.setAsesor(usuarioService.asesorDisponible());
-		cliente.setActividad(actividadService.buscarPorId(1));
-        mvc.perform(MockMvcRequestBuilders.post("/api/clientes/crear")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(cliente)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").exists())
-                .andReturn();
-		
+	public void contextLoads() {
+	}
+//	@Autowired
+//    private MockMvc mvc;
+//
+//	@Autowired
+//    private ObjectMapper objectMapper;
+//
+//	@Autowired
+//	private SsptClienteService clienteService;
+//
+//	@Autowired
+//	private SsptTipoClienteService tipoClienteService;
+//
+//	@Autowired
+//	private SsptTipoIdentificacionService tipoIdentificacionService;
+//
+//	@Autowired
+//	private SsptMunicipioService municipioService;
+//
+//	@Autowired
+//	private SsptUsuarioService usuarioService;
+//
+//	@Autowired
+//	private SsptActividadEconomicaService actividadService;
+	
+//	@Test
+//	public void guardarClienteTest() throws Exception {
+//
+//		SsptCliente cliente = new SsptCliente();
+//
+//		cliente.setNombre1("Judith");
+//		cliente.setNombre2("Pilar");
+//		cliente.setApellido1("Rodriguez");
+//		cliente.setApellido2("Tenjo");
+//		cliente.setIdentificacion("123456789");
+//		cliente.setTipoCliente(tipoClienteService.buscarPorId(1));
+//		cliente.setTipoIdentificacion(tipoIdentificacionService.buscarPorTipo("CC"));
+//		cliente.setMunicipio(municipioService.getPorId(1));
+//		cliente.setAsesor(usuarioService.asesorDisponible());
+//		cliente.setActividad(actividadService.buscarPorId(1));
+//
+//        mvc.perform(MockMvcRequestBuilders.post("/api/clientes/crear")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(cliente)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").exists())
+//                .andReturn();
+//
 //		mvc.perform(get("/api/clientes/porCedula/"+cliente.getIdentificacion())
 //				.contentType(MediaType.APPLICATION_JSON))
 //	      		.andExpect(status().isOk())
 //	      		.andExpect(content()
 //	      		.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 //	      		.andExpect(jsonPath("$.cliente.identificacion", is(cliente.getIdentificacion())));
-	}
+//	}
 }
 

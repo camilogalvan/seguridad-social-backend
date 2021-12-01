@@ -21,13 +21,13 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 	private SsptClienteRepository c;
 
 	@Override
-	public SsptCliente GetPorId(int id) {
+	public SsptCliente getPorId(int id) {
 
 		return c.findById(id).orElse(null);
 	}
 
 	@Override
-	public List<SsptCliente> Get() {
+	public List<SsptCliente> get() {
 
 		return (List<SsptCliente>) c.findAll();
 	}
@@ -47,7 +47,7 @@ public class SsptClienteServiceImpl implements SsptClienteService {
 	}
 
 	@Override
-	public SsptCliente GetPorCedula(String cedula) {
+	public SsptCliente getPorCedula(String cedula) {
 
 		return c.findByIdentificacion(cedula);
 	}
